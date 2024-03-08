@@ -20,7 +20,7 @@ def parse_detections_page(soup):
 
     return data_list
 
-
+#this is a test
 def execution():
 
     soup = fetch_page_data(url)
