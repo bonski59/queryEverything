@@ -20,12 +20,7 @@ def parse_page(soup, link):
     my_macros = [macro.text.strip() for macro in soup.find_all('a', href=lambda href: href and href.endswith('.yml'))]
 
     # required fields parse
-    h4_req_fields = soup.find('h4', id='required-fields')
-    ul_or_ol = h4_req_fields.find_next_sibling('ul')
-    if ul_or_ol:
-        li_elements = ul_or_ol.find_all('li')
-    else:
-        li_elements = []
+    h4_req_fields = [req.text.strip() for req in soup.find('h4', id='required-fields').find_next_sibling('ul')] if soup.find('h4', id='required-fields') else "N/A"
 
     data = {
         "url": link if link else "N/A",
@@ -36,7 +31,7 @@ def parse_page(soup, link):
         "last_update": soup.find("time").text.strip() if soup.find("time") else "N/A",
         "splunk_query": soup.find("td", {"class": "rouge-code"}).text.strip() if soup.find("td", {"class": "rouge-code"}) else "N/A",
         "required_macros": [macros for macros in my_macros if "source" not in macros] if my_macros else "N/A",
-        "required_fields": [element.text.strip() for element in li_elements],
+        "required_fields": list(filter(lambda item: item != '', h4_req_fields)),
         "false_positives": soup.find('h4', id='known-false-positives').find_next_sibling("p").text.strip() if soup.find('h4', id='known-false-positives').find_next_sibling("p").text.strip() else "N/A",
         "associated_analytics": [code.text.strip() for code in soup.findAll("a", href=True) if "stories" in code['href'] if
                        "Analytic Stories" not in code],
@@ -50,6 +45,7 @@ def parse_page(soup, link):
 
 
 def save_to_csv(data, filename="splunk_research_output.csv"):
+
     keys = data[0].keys()
     file_exists = os.path.isfile(filename)
     with open(filename, 'a', newline='', encoding='utf-8') as output_file:
@@ -62,8 +58,11 @@ def save_to_csv(data, filename="splunk_research_output.csv"):
 
 
 def parse_detection_url(urls):
+
+
     all_data = []
     for url in urls:
+        print(url)
         soup = fetch_page_data(url)
         if soup:
             data = parse_page(soup, url)

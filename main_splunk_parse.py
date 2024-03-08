@@ -16,26 +16,26 @@ def fetch_page_data(url):
 
 
 def parse_detections_page(soup):
+
     data_list = [urljoin("https://research.splunk.com/detections/", link.get("href")) for link in soup.find_all("a", href=True) if "endpoint" in link['href']]
 
     return data_list
 
-#this is a test  jklkljkl njknjk
+
+# this is a test  jklkljkl njknjk
 def execution():
 
     soup = fetch_page_data(url)
-    if soup:
+    if soup.find("td", {"class": "rouge-code"}):
         data = parse_detections_page(soup)
     else:
-        data = "N/A"
+        return 0
 
     return data
 
 
 all_links = execution()
 
-#print(all_links)
+print(all_links)
 
-for link in all_links:
-    print(link)
-    #sdp.parse_detection_url(link)
+sdp.parse_detection_url(all_links)
