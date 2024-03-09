@@ -20,7 +20,8 @@ def parse_page(soup, link):
     my_macros = [macro.text.strip() for macro in soup.find_all('a', href=lambda href: href and href.endswith('.yml'))]
 
     # required fields parse
-    h4_req_fields = [req.text.strip() for req in soup.find('h4', id='required-fields').find_next_sibling('ul')] if soup.find('h4', id='required-fields') else "N/A"
+    h4_req_fields = [req.text.strip() for req in soup.find('h4', id='required-fields').find_next_sibling('ul')] \
+        if soup.find('h4', id='required-fields') else "N/A"
 
     data = {
         "url": link if link else "N/A",
@@ -57,18 +58,12 @@ def save_to_csv(data, filename="splunk_research_output.csv"):
         dict_writer.writerows(data)
 
 
-def parse_detection_url(urls):
+def parse_detection_url(url):
+    print(url)
+    soup = fetch_page_data(url)
+    data = parse_page(soup, url)
 
-
-    all_data = []
-    for url in urls:
-        print(url)
-        soup = fetch_page_data(url)
-        if soup:
-            data = parse_page(soup, url)
-            all_data.append(data)
-
-    save_to_csv(all_data)
+    save_to_csv(data)
 
 
 """urls = ["https://research.splunk.com/cloud/ccb3e4af-23d6-407f-9842-a26212816c9e/"]
