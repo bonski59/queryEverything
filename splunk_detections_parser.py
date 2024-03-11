@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 from urllib.parse import urljoin
 import os
+import re
 
 # global variable used for later
 detect_repo = "https://research.splunk.com/detections/"
@@ -21,7 +22,7 @@ def parse_page(soup, link):
     # Assuming the structure based on common patterns; you may need to adjust these
 
     # macros parse
-    my_macros = [macro.text.strip() for macro in soup.find_all('a', href=lambda href: href and href.endswith('.yml'))]
+    my_macros = [req.text.strip() for req in soup.find('h4', id='macros').find_next_sibling('ul')]
 
     # required fields parse
     h4_req_fields = [req.text.strip() for req in soup.find('h4', id='required-fields').find_next_sibling('ul')] \
@@ -36,7 +37,7 @@ def parse_page(soup, link):
         "type": [link.text.strip() for link in soup.find_all("a", href=True) if "Types" in link['href']],
         "last_update": soup.find("time").text.strip() if soup.find("time") else "N/A",
         "splunk_query": soup.find("td", {"class": "rouge-code"}).text.strip() if soup.find("td", {"class": "rouge-code"}) else "N/A",
-        "required_macros": [macros for macros in my_macros if "source" not in macros] if my_macros else "N/A",
+        "required_macros": list(filter(lambda item: item != '', my_macros)),
         "required_fields": list(filter(lambda item: item != '', h4_req_fields)),
         "false_positives": soup.find('h4', id='known-false-positives').find_next_sibling("p").text.strip() if soup.find('h4', id='known-false-positives').find_next_sibling("p").text.strip() else "N/A",
         "associated_analytics": [code.text.strip() for code in soup.findAll("a", href=True) if "stories" in code['href'] if
@@ -61,11 +62,13 @@ def save_to_csv(data, filename="splunk_research_output.csv"):
             dict_writer.writeheader()
 
         dict_writer.writerows(data)
+    print(f"{data.get('title')} retrieved and written")
 
 # reads the specified url, parses, and then sends it to a csv
 def parse_endpoint_url(url):
     print(url)
     soup = fetch_page_data(url)
+    print(soup)
     data = parse_page(soup, url)
 
     save_to_csv(data)
@@ -84,11 +87,34 @@ def make_detections_repo_file(list_links):
     file = './detections_repo_links.txt'
     with open(file, "w") as f:
         for link in list_links:
-            f.write(f"{link}\n")
+            if verify_detections_repo(link):
+                f.write(f"{link}\n")
+            else:
+                pass
+                print("link did not match regex pattern - ", link)
+
     return
 
+# verify links found in detect repo are the correct links we want to follow
+def verify_detections_repo(url):
+
+    pattern = r"https://research\.splunk\.com/endpoint*-*-*-*"
+
+    if re.match(pattern, url):
+        return True
+    else:
+        return False
 
 
+def parse_all_repo_links():
+    with open('./detections_repo_links.txt', 'r') as file:
+        for line in file:
+            print(line, type(line))
+            parse_endpoint_url(line)
+
+
+if __name__ == "__main__":
+    parse_all_repo_links()
 
 
 
