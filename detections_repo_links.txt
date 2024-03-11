@@ -1,5 +1,3 @@
-https://research.splunk.com/categories/endpoint
-https://research.splunk.com/detections/endpoint/
 https://research.splunk.com/endpoint/791b727c-deec-4fbe-a732-756131b3c5a1/
 https://research.splunk.com/endpoint/01d29b48-ff6f-11eb-b81e-acde48001123/
 https://research.splunk.com/endpoint/fb4c31b0-13e8-4155-8aa5-24de4b8d6717/
@@ -566,10 +564,6 @@ https://research.splunk.com/endpoint/6fa31414-546e-11ec-adfa-acde48001122/
 https://research.splunk.com/endpoint/b25f6f62-0782-43c1-b403-083231ffd97d/
 https://research.splunk.com/endpoint/56d7cfcc-da63-11eb-92d4-acde48001122/
 https://research.splunk.com/endpoint/a4214f0b-e01c-41bc-8cc4-d2b71e3056b4/
-https://research.splunk.com/tags/#endpoint-denial-of-service
-https://research.splunk.com/tags/#endpoint-denial-of-service
-https://research.splunk.com/tags/#endpoint-denial-of-service
-https://research.splunk.com/tags/#endpoint-denial-of-service
 https://research.splunk.com/endpoint/15d905f6-da6b-11eb-ab82-acde48001122/
 https://research.splunk.com/endpoint/a5e451f8-da81-11eb-b245-acde48001122/
 https://research.splunk.com/endpoint/799b606e-da81-11eb-93f8-acde48001122/
@@ -1138,7 +1132,6 @@ https://research.splunk.com/endpoint/1f35e1da-267b-11ec-90a9-acde48001122/
 https://research.splunk.com/endpoint/2eed004c-4c0d-11ec-93e8-3e22fbd008af/
 https://research.splunk.com/endpoint/90080fa6-a8df-11eb-91e4-acde48001122/
 https://research.splunk.com/endpoint/004e32e2-146d-11ec-a83f-acde48001122/
-https://research.splunk.com/#endpoint
 https://research.splunk.com/endpoint/ffd5e001-2e34-48f4-97a2-26dc4bb08178/
 https://research.splunk.com/endpoint/ccad96d7-a48c-4f13-8b9c-9f6a31cba454/
 https://research.splunk.com/endpoint/3bf5541a-6a45-4fdc-b01d-59b899fff961/
