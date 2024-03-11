@@ -4,6 +4,10 @@ import csv
 from urllib.parse import urljoin
 import os
 
+# global variable used for later
+detect_repo = "https://research.splunk.com/detections/"
+
+# fetches url and makes it a readable variable or returns error
 def fetch_page_data(url):
     response = requests.get(url)
     if response.status_code == 200:
@@ -12,7 +16,7 @@ def fetch_page_data(url):
         print(f"Error fetching {url}")
         return None
 
-
+# parses page for specific information and makes a dictionary output.
 def parse_page(soup, link):
     # Assuming the structure based on common patterns; you may need to adjust these
 
@@ -23,6 +27,7 @@ def parse_page(soup, link):
     h4_req_fields = [req.text.strip() for req in soup.find('h4', id='required-fields').find_next_sibling('ul')] \
         if soup.find('h4', id='required-fields') else "N/A"
 
+    # parsed data dictionary
     data = {
         "url": link if link else "N/A",
         "title": soup.find("h1", id="page-title").text.strip() if soup.find("h1", id="page-title") else "N/A",
@@ -44,7 +49,7 @@ def parse_page(soup, link):
     }
     return data
 
-
+# takes a dictionary and outputs a csv with headers respective to the order of the dictionary
 def save_to_csv(data, filename="splunk_research_output.csv"):
 
     keys = data[0].keys()
@@ -57,8 +62,8 @@ def save_to_csv(data, filename="splunk_research_output.csv"):
 
         dict_writer.writerows(data)
 
-
-def parse_detection_url(url):
+# reads the specified url, parses, and then sends it to a csv
+def parse_endpoint_url(url):
     print(url)
     soup = fetch_page_data(url)
     data = parse_page(soup, url)
@@ -66,9 +71,13 @@ def parse_detection_url(url):
     save_to_csv(data)
 
 
-"""urls = ["https://research.splunk.com/cloud/ccb3e4af-23d6-407f-9842-a26212816c9e/"]
+# reads the detection repo, finds all filtered links, and returns a list of links
+def parse_detections_page():
+    soup = fetch_page_data(detect_repo)
+    data_list = [urljoin("https://research.splunk.com/", link.get("href"))
+                 for link in soup.find_all("a", href=True) if "endpoint" in link['href']]
+
+    return data_list
 
 
-if __name__ == "__main__":
-    parse_detection_url(urls)
-"""
+
