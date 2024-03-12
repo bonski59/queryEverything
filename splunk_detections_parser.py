@@ -52,7 +52,7 @@ def parse_endpoint_url(url):
     data = {
         "url": url if url else "N/A",
         "title": soup.find("h1", id="page-title").text.strip() if soup.find("h1", id="page-title") else "N/A",
-        "mitre_attack_codes": [tcode.text.strip() for tcode in soup.find('h4', id='attck').find_next_sibling('table').find_all('a')] if soup.find('h4', id='attck') else "N/A",
+        "mitre_attack_codes": [tcode.text.strip() for tcode in soup.findAll("a", href=True) if "https://attack.mitre.org/techniques" in tcode['href']],
         "description": soup.find("h4", id="description").find_next_sibling("p").text.strip() if soup.find("h4", id="description").find_next_sibling("p").text.strip() else "N/A",
         "type": [link.text.strip() for link in soup.find_all("a", href=True) if "Types" in link['href']],
         "last_update": soup.find("time").text.strip() if soup.find("time") else "N/A",
