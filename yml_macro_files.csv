@@ -1,0 +1,829 @@
+File Name,Contents
+aws_description.yml,"definition: sourcetype=""aws:description""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: aws_description
+"
+aws_securityhub_firehose.yml,"definition: sourcetype=""aws:securityhub:firehose""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: aws_securityhub_firehose
+"
+aws_s3_accesslogs.yml,"definition: sourcetype=aws:s3:accesslogs
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: aws_s3_accesslogs
+"
+aws_ecr_users.yml,"definition: userName IN (user)
+description: specify the user allowed to push Images to AWS ECR.
+name: aws_ecr_users
+"
+azure_audit.yml,"definition: sourcetype=mscs:azure:audit
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: azure_audit
+"
+amazon_security_lake.yml,"definition: sourcetype=aws:asl
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: amazon_security_lake
+"
+azure_monitor_aad.yml,"definition: sourcetype=azure:monitor:aad
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: azure_monitor_aad
+"
+audittrail.yml,"definition: index=_audit sourcetype=audittrail
+description: Macro to enable easy searching of audittrail logs
+name: audittrail
+"
+capi2_operational.yml,"definition: (source=XmlWinEventLog:Microsoft-Windows-CAPI2/Operational)
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: capi2_operational"
+azuread.yml,"definition: sourcetype=mscs:azure:eventhub
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: azuread
+"
+brand_abuse_web.yml,"definition: lookup update=true brandMonitoring_lookup domain as urls OUTPUT domain_abuse
+  | search domain_abuse=true
+description: This macro limits the output to only domains that are in the brand monitoring
+  lookup file
+name: brand_abuse_web
+"
+aws_config.yml,"definition: sourcetype=aws:config
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: aws_config
+"
+base64decode.yml,"arguments:
+  - b64in
+definition: 'eval b64x_split=split($b64in$,"""") 
+| lookup char_conversion_matrix base64char as b64x_split OUTPUT base64bin as b64x_bin 
+| eval b64x_join=mvjoin(b64x_bin,"""") 
+| rex field=b64x_join ""(?<b64x_by8>.{8})"" max_match=0 
+| lookup char_conversion_matrix bin as b64x_by8 output ascii as b64x_out 
+| eval $b64in$_decode=mvjoin(b64x_out,"""")
+| fields - b64x_*
+| eval $b64in$_decode = replace(replace($b64in$_decode,"":NUL:"",""""),"":SPACE:"","" "")
+| rex field=$b64in$_decode mode=sed ""s/\x00//g""'
+description: Content based conversion of UTF8/UTF16 based base64 encoding. Not a full implementation, but good enough for context without additional app installation.
+name: base64decode"
+brand_abuse_dns.yml,"definition: lookup update=true brandMonitoring_lookup domain as query OUTPUT domain_abuse
+  | search domain_abuse=true
+description: This macro limits the output to only domains that are in the brand monitoring
+  lookup file
+name: brand_abuse_dns
+"
+admon.yml,"definition: source=ActiveDirectory
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: admon
+"
+aws_cloudwatchlogs_eks.yml,"definition: sourcetype=""aws:cloudwatchlogs:eks""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: aws_cloudwatchlogs_eks
+"
+brand_abuse_email.yml,"definition: lookup update=true brandMonitoring_lookup domain as src_user OUTPUT domain_abuse
+  | search domain_abuse=true
+description: This macro limits the output to only domains that are in the brand monitoring
+  lookup file
+name: brand_abuse_email
+"
+aws_securityhub_finding.yml,"definition: sourcetype=""aws:securityhub:finding""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: aws_securityhub_finding
+"
+audit_searches.yml,"definition: index=_audit sourcetype=audittrail action=search
+description: Macro to enable easy searching of audittrail logs for searches
+name: audit_searches
+"
+certificateservices_lifecycle.yml,"definition: (source=XmlWinEventLog:Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational OR source=XmlWinEventLog:Microsoft-Windows-CertificateServicesClient-Lifecycle-User/Operational)
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: certificateservices_lifecycle"
+cloudtrail.yml,"definition: sourcetype=aws:cloudtrail
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: cloudtrail
+"
+cloudwatch_eks.yml,"definition: sourcetype=""aws:cloudwatchlogs:eks""
+description: customer specific splunk configurations(eg- index, source, sourcetype) for AWS cloudwatch eks logs. Replace the macro definition with configurations for your Splunk Environmnent.
+name: cloudwatch_eks
+"
+circleci.yml,"definition: sourcetype=circleci
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: circleci"
+cloudwatch_vpc.yml,"definition: sourcetype=aws:cloudwatchlogs:vpcflow
+description: customer specific splunk configurations(eg- index, source, sourcetype) for AWS cloudwatch vpc logs. Replace the macro definition with configurations for your Splunk Environmnent.
+name: cloudwatch_vpc
+"
+bootloader_inventory.yml,"definition: sourcetype = PwSh:bootloader
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: bootloader_inventory"
+driverinventory.yml,"definition: sourcetype=PwSh:DriverInventory
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: driverinventory"
+cisco_networks.yml,"definition: eventtype=cisco_ios
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: cisco_networks
+"
+cloudwatchlogs_vpcflow.yml,"definition: sourcetype=aws:cloudwatchlogs:vpcflow
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: cloudwatchlogs_vpcflow
+"
+evilginx_phishlets_0365.yml,"definition: (query=login* AND query=www*)
+description: This limits the query fields to domains that are associated with evilginx
+  masquerading as Office 365
+name: evilginx_phishlets_0365
+"
+cloud_api_calls_from_previously_unseen_user_roles_activity_window.yml,"description: Use this macro to determine how far back you should be checking for new commands from user roles
+definition: '""-70m@m""'
+name: cloud_api_calls_from_previously_unseen_user_roles_activity_window
+"
+evilginx_phishlets_aws.yml,"definition: (query=www* AND query=aws* AND query=console.aws* AND query=signin.aws*
+  AND api-northeast-1.console.aws* AND query=fls-na* AND query=images-na*)
+description: This limits the query fields to domains that are associated with evilginx
+  masquerading as an AWS console
+name: evilginx_phishlets_aws
+"
+evilginx_phishlets_amazon.yml,"definition: (query=fls-na* AND query = www* AND query=images*)
+description: This limits the query fields to domains that are associated with evilginx
+  masquerading as Amazon
+name: evilginx_phishlets_amazon
+"
+dynamic_dns_providers.yml,"definition: lookup update=true dynamic_dns_providers_default dynamic_dns_domains as
+  query OUTPUTNEW isDynDNS_default | lookup update=true dynamic_dns_providers_local
+  dynamic_dns_domains as query OUTPUTNEW isDynDNS_local| eval isDynDNS = coalesce(isDynDNS_local,isDynDNS_default)
+  |fields - isDynDNS_default, isDynDNS_local| search isDynDNS=True
+description: This macro limits the output of the query field to dynamic dns domains.
+  It looks up the domains in a file provided by Splunk and one intended to be updated
+  by the end user.
+name: dynamic_dns_providers
+"
+ec2_modification_api_calls.yml,"definition: (eventName=AssociateAddress OR eventName=AssociateIamInstanceProfile OR
+  eventName=AttachClassicLinkVpc OR eventName=AttachNetworkInterface OR eventName=AttachVolume
+  OR eventName=BundleInstance OR eventName=DetachClassicLinkVpc OR eventName=DetachVolume
+  OR eventName=ModifyInstanceAttribute OR eventName=ModifyInstancePlacement
+  OR eventName=MonitorInstances OR eventName=RebootInstances
+  OR eventName=ResetInstanceAttribute OR eventName=StartInstances OR eventName=StopInstances
+  OR eventName=TerminateInstances OR eventName=UnmonitorInstances)
+description: This is a list of AWS event names that have to do with modifying Amazon
+  EC2 instances
+name: ec2_modification_api_calls
+"
+dynamic_dns_web_traffic.yml,"definition: lookup update=true dynamic_dns_providers_default dynamic_dns_domains as
+  url OUTPUTNEW isDynDNS_default | lookup update=true dynamic_dns_providers_local
+  dynamic_dns_domains as url OUTPUTNEW isDynDNS_local| eval isDynDNS = coalesce(isDynDNS_default,
+  isDynDNS_local)|fields - isDynDNS_default, isDynDNS_local| search isDynDNS=True
+description: This is a description
+name: dynamic_dns_web_traffic
+"
+evilginx_phishlets_google.yml,"definition: (query=accounts* AND query=ssl* AND query=www*)
+description: This limits the query fields to domains that are associated with evilginx
+  masquerading as Google
+name: evilginx_phishlets_google
+"
+evilginx_phishlets_facebook.yml,"definition: (query=www* AND query = m* AND query=static*)
+description: This limits the query fields to domains that are associated with evilginx
+  masquerading as FaceBook
+name: evilginx_phishlets_facebook
+"
+evilginx_phishlets_github.yml,"definition: (query=api* AND query = github*)
+description: This limits the query fields to domains that are associated with evilginx
+  masquerading as GitHub
+name: evilginx_phishlets_github
+"
+f5_bigip_rogue.yml,"definition: index=netops sourcetype=""f5:bigip:rogue""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: f5_bigip_rogue"
+filter_rare_process_allow_list.yml,"definition: lookup update=true lookup_rare_process_allow_list_default process as process
+  OUTPUTNEW allow_list | where allow_list=""false"" | lookup update=true lookup_rare_process_allow_list_local
+  process as process OUTPUT allow_list | where allow_list=""false""
+description: This macro is intended to allow_list processes that have been definied
+  as rare
+name: filter_rare_process_allow_list
+"
+evilginx_phishlets_outlook.yml,"definition: (query=outlook* AND query=login* AND query=account*)
+description: This limits the query fields to domains that are associated with evilginx
+  masquerading as Outlook
+name: evilginx_phishlets_outlook
+"
+exchange.yml,"definition: sourcetype=""MSWindows:IIS""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: exchange"
+github.yml,"definition: sourcetype=aws:firehose:json
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: github"
+google_gcp_pubnet_message.yml,"definition: sourcetype=""google:gcp:pubsub:message""
+description: customer specific splunk configurations(eg- index, source, sourcetype) for Google GCP. Replace the macro definition with configurations for your Splunk Environmnent.
+name: google_gcp_pubnet_message
+"
+gsuite_calendar.yml,"definition: sourcetype=gsuite:calendar:json
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: gsuite_calendar
+
+"
+google_gcp_pubsub_message.yml,"definition: sourcetype=""google:gcp:pubsub:message""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: google_gcp_pubsub_message
+"
+github_known_users.yml,"definition: user IN (user_names_here)
+description: specify the user allowed to create PRs in Github projects.
+name: github_known_users
+"
+gsuite_gmail.yml,"definition: sourcetype=gsuite:gmail:bigquery
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: gsuite_gmail"
+iis_operational_logs.yml,"definition: sourcetype=""IIS:Configuration:Operational""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: iis_operational_logs"
+gws_reports_admin.yml,"definition: sourcetype=gws:reports:admin
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: gws_reports_admin
+"
+gsuite_drive.yml,"definition: sourcetype=gsuite:drive:json
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: gsuite_drive
+
+"
+gws_reports_login.yml,"definition: sourcetype=gws:reports:login
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: gws_reports_login
+"
+iis_get_webglobalmodule.yml,"definition: sourcetype=""Pwsh:InstalledIISModules""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: iis_get_webglobalmodule"
+is_nirsoft_software.yml,"definition: lookup update=true is_nirsoft_software filename as process_name OUTPUT nirsoftFile | search nirsoftFile=true
+description: This macro is related to potentially identifiable software related to NirSoft. Remove or filter as needed based.
+name: is_nirsoft_software"
+kube_allowed_images.yml,"definition: objectRef.name IN (*splunk*, *falco*)
+description: Define your images which are allowed to connect to your kubernetes cluster.
+name: kube_allowed_images
+"
+is_windows_system_file.yml,"definition: lookup update=true is_windows_system_file filename as process_name
+  OUTPUT systemFile | search systemFile=true
+description: This macro limits the output to process names that are in the Windows
+  System directory
+name: is_windows_system_file
+"
+is_net_windows_file.yml,"definition: lookup update=true is_net_windows_file filename as process_name OUTPUT netFile | lookup update=true is_net_windows_file originalFileName as original_file_name OUTPUT netFile | search netFile=true
+description: This macro limits the output to process names that are .net binaries on Windows Server 2016 and Windows 11.
+name: is_net_windows_file"
+gws_login_mfa_methods.yml,"definition: event.parameters{}.multiValue{} IN (""backup_code"", ""google_authenticator"", ""google_prompt"", ""idv_any_phone"", ""idv_preregistered_phone"", ""internal_two_factor"", ""knowledge_employee_id"", ""knowledge_preregistered_email"", ""login_location"", ""knowledge_preregistered_phone"", ""offline_otp"", ""security_key"", ""security_key_otp"")
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: gws_login_mfa_methods
+"
+kube_allowed_locations.yml,"definition: Country=""United States""
+description: Define your locations which are allowed to connect to your kubernetes cluster.
+name: kube_allowed_loactions
+"
+kube_allowed_user_names.yml,"definition: user.username=admin
+description: Define your user names which are allowed to connect to your kubernetes cluster.
+name: kube_allowed_user_names
+"
+kube_allowed_user_groups.yml,"definition: user.groups{} IN (admin)
+description: Define your user groups which are allowed to connect to your kubernetes cluster.
+name: kube_allowed_user_groups
+"
+kube_allowed_user_agents.yml,"definition: userAgent=Helm/3.13.2
+description: Define your user agents which are allowed to connect to your kubernetes cluster.
+name: kube_allowed_user_agents
+"
+kube_container_falco.yml,"definition: sourcetype=""kube:container:falco""
+description: customer specific splunk configurations(eg- index, source, sourcetype) for Kubernetes audit data. Replace the macro definition with configurations for your Splunk Environmnent.
+name: kube_container_falco
+"
+kubernetes_azure.yml,"definition: sourcetype=mscs:storage:blob:json
+description: customer specific splunk configurations(eg- index, source, sourcetype) for Kubernetes data from Azure. Replace the macro definition with configurations for your Splunk Environmnent.
+name: kubernetes_azure
+"
+kubernetes_container_controller.yml,"definition: sourcetype=kube:container:controller
+description: customer specific splunk configurations(eg- index, source, sourcetype) for Kubernetes data. Replace the macro definition with configurations for your Splunk Environmnent.
+name: kubernetes_container_controller
+"
+linux_hosts.yml,"definition: index=*
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: linux_hosts"
+linux_shells.yml,"definition: (Processes.process_name IN (""sh"", ""ksh"", ""zsh"", ""bash"", ""dash"", ""rbash"", ""fish"", ""csh"", ""tcsh"", ""ion"", ""eshell""))
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: linux_shells
+"
+netbackup.yml,"definition: sourcetype=""netbackup_logs""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: netbackup
+"
+ms_defender.yml,"definition: source=""WinEventLog:Microsoft-Windows-Windows Defender/Operational"" 
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: ms_defender
+"
+network_acl_events.yml,"definition: (eventName = CreateNetworkAcl OR eventName = CreateNetworkAclEntry OR
+  eventName = DeleteNetworkAcl OR eventName = DeleteNetworkAclEntry OR eventName =
+  ReplaceNetworkAclEntry OR eventName = ReplaceNetworkAclAssociation)
+description: This is a list of AWS event names that are associated with Network ACLs
+name: network_acl_events
+"
+kubernetes_metrics.yml,"definition: index=kubernetes_metrics
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: kubernetes_metrics
+"
+msexchange_management.yml,"definition: sourcetype=MSExchange:management
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: msexchange_management"
+o365_management_activity.yml,"definition: sourcetype=o365:management:activity
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: o365_management_activity
+"
+okta.yml,"definition: eventtype=okta_log
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: okta
+"
+kube_objects_events.yml,"definition: sourcetype=kube:objects:events
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: kube_objects_events
+"
+osquery_process.yml,"definition: eventtype=""osquery-process""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: osquery_process"
+o365_graph.yml,"definition: sourcetype=o365:graph:api
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: o365_graph
+"
+kube_audit.yml,"definition: source=""kubernetes""
+description: customer specific splunk configurations(eg- index, source, sourcetype) for Kubernetes audit data. Replace the macro definition with configurations for your Splunk Environmnent.
+name: kube_audit
+"
+papercutng.yml,"definition: sourcetype=""papercutng""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: papercutng
+"
+osquery.yml,"definition: sourcetype=osquery:results
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: osquery"
+path_traversal_spl_injection.yml,"definition: index=_internal sourcetype=splunkd_ui_access 
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: path_traversal_spl_injection
+"
+potential_password_in_username_false_positive_reduction.yml,"definition: search *
+description: Add customer specific known false positives to the map command used in detection - Potential password in username
+name: potential_password_in_username_false_positive_reduction"
+pingid.yml,"definition: source=PINGID
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: pingid"
+powershell.yml,"definition: (source=WinEventLog:Microsoft-Windows-PowerShell/Operational OR source=""XmlWinEventLog:Microsoft-Windows-PowerShell/Operational"")
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: powershell
+"
+previously_seen_cloud_compute_creations_by_user_search_window_begin_offset.yml,"description: Use this macro to determine how far into the past the window should be to determine if the user is new or not
+definition: '""-70m@m""'
+name: previously_seen_cloud_compute_creations_by_user_search_window_begin_offset
+"
+previously_seen_cloud_api_calls_per_user_role_forget_window.yml,"description: Use this macro to determine how long to keep track of cloud api calls per user role
+definition: '""-90d@d""'
+name: previously_seen_cloud_api_calls_per_user_role_forget_window
+"
+potentially_malicious_code_on_cmdline_tokenize_score.yml,"definition: eval orig_process=process, process=replace(lower(process), ""`"", """") | makemv tokenizer=""([\w\d\-]+)"" process | eval unusual_cmdline_feature_for=if(match(process, ""^for$""), mvcount(mvfilter(match(process, ""^for$""))), 0), unusual_cmdline_feature_netsh=if(match(process, ""^netsh$""), mvcount(mvfilter(match(process, ""^netsh$""))), 0), unusual_cmdline_feature_readbytes=if(match(process, ""^readbytes$""), mvcount(mvfilter(match(process, ""^readbytes$""))), 0), unusual_cmdline_feature_set=if(match(process, ""^set$""), mvcount(mvfilter(match(process, ""^set$""))), 0), unusual_cmdline_feature_unrestricted=if(match(process, ""^unrestricted$""), mvcount(mvfilter(match(process, ""^unrestricted$""))), 0), unusual_cmdline_feature_winstations=if(match(process, ""^winstations$""), mvcount(mvfilter(match(process, ""^winstations$""))), 0), unusual_cmdline_feature_-value=if(match(process, ""^-value$""), mvcount(mvfilter(match(process, ""^-value$""))), 0), unusual_cmdline_feature_compression=if(match(process, ""^compression$""), mvcount(mvfilter(match(process, ""^compression$""))), 0), unusual_cmdline_feature_server=if(match(process, ""^server$""), mvcount(mvfilter(match(process, ""^server$""))), 0), unusual_cmdline_feature_set-mppreference=if(match(process, ""^set-mppreference$""), mvcount(mvfilter(match(process, ""^set-mppreference$""))), 0), unusual_cmdline_feature_terminal=if(match(process, ""^terminal$""), mvcount(mvfilter(match(process, ""^terminal$""))), 0), unusual_cmdline_feature_-name=if(match(process, ""^-name$""), mvcount(mvfilter(match(process, ""^-name$""))), 0), unusual_cmdline_feature_catch=if(match(process, ""^catch$""), mvcount(mvfilter(match(process, ""^catch$""))), 0), unusual_cmdline_feature_get-wmiobject=if(match(process, ""^get-wmiobject$""), mvcount(mvfilter(match(process, ""^get-wmiobject$""))), 0), unusual_cmdline_feature_hklm=if(match(process, ""^hklm$""), mvcount(mvfilter(match(process, ""^hklm$""))), 0), unusual_cmdline_feature_streamreader=if(match(process, ""^streamreader$""), mvcount(mvfilter(match(process, ""^streamreader$""))), 0), unusual_cmdline_feature_system32=if(match(process, ""^system32$""), mvcount(mvfilter(match(process, ""^system32$""))), 0), unusual_cmdline_feature_username=if(match(process, ""^username$""), mvcount(mvfilter(match(process, ""^username$""))), 0), unusual_cmdline_feature_webrequest=if(match(process, ""^webrequest$""), mvcount(mvfilter(match(process, ""^webrequest$""))), 0), unusual_cmdline_feature_count=if(match(process, ""^count$""), mvcount(mvfilter(match(process, ""^count$""))), 0), unusual_cmdline_feature_webclient=if(match(process, ""^webclient$""), mvcount(mvfilter(match(process, ""^webclient$""))), 0), unusual_cmdline_feature_writeallbytes=if(match(process, ""^writeallbytes$""), mvcount(mvfilter(match(process, ""^writeallbytes$""))), 0), unusual_cmdline_feature_convert=if(match(process, ""^convert$""), mvcount(mvfilter(match(process, ""^convert$""))), 0), unusual_cmdline_feature_create=if(match(process, ""^create$""), mvcount(mvfilter(match(process, ""^create$""))), 0), unusual_cmdline_feature_function=if(match(process, ""^function$""), mvcount(mvfilter(match(process, ""^function$""))), 0), unusual_cmdline_feature_net=if(match(process, ""^net$""), mvcount(mvfilter(match(process, ""^net$""))), 0), unusual_cmdline_feature_com=if(match(process, ""^com$""), mvcount(mvfilter(match(process, ""^com$""))), 0), unusual_cmdline_feature_http=if(match(process, ""^http$""), mvcount(mvfilter(match(process, ""^http$""))), 0), unusual_cmdline_feature_io=if(match(process, ""^io$""), mvcount(mvfilter(match(process, ""^io$""))), 0), unusual_cmdline_feature_system=if(match(process, ""^system$""), mvcount(mvfilter(match(process, ""^system$""))), 0), unusual_cmdline_feature_new-object=if(match(process, ""^new-object$""), mvcount(mvfilter(match(process, ""^new-object$""))), 0), unusual_cmdline_feature_if=if(match(process, ""^if$""), mvcount(mvfilter(match(process, ""^if$""))), 0), unusual_cmdline_feature_threading=if(match(process, ""^threading$""), mvcount(mvfilter(match(process, ""^threading$""))), 0), unusual_cmdline_feature_mutex=if(match(process, ""^mutex$""), mvcount(mvfilter(match(process, ""^mutex$""))), 0), unusual_cmdline_feature_cryptography=if(match(process, ""^cryptography$""), mvcount(mvfilter(match(process, ""^cryptography$""))), 0), unusual_cmdline_feature_computehash=if(match(process, ""^computehash$""), mvcount(mvfilter(match(process, ""^computehash$""))), 0) 
+description: Performs the tokenization and application of the malicious commandline classifier
+name: potentially_malicious_code_on_cmdline_tokenize_score"
+previously_seen_cloud_compute_image_search_window_begin_offset.yml,"description: Use this macro to determine how far into the past the window should be to determine if the image is new or not
+definition: '""-70m@m""'
+name: previously_seen_cloud_compute_image_search_window_begin_offset
+"
+previously_seen_cloud_compute_instance_type_forget_window.yml,"description: Use this macro to determine how long to keep track of cloud instance types
+definition: '""-90d@d""'
+name: previously_seen_cloud_compute_instance_type_forget_window
+"
+previously_seen_cloud_compute_instance_types_search_window_begin_offset.yml,"description: Use this macro to determine how far into the past the window
+    should be to determine if the instance type is new or not
+definition: '""-70m@m""'
+name: previously_seen_cloud_compute_instance_types_search_window_begin_offset
+"
+previously_seen_cloud_instance_modifications_by_user_search_window_begin_offset.yml,"description: Use this macro to determine how far into the past the window should be to determine if the user is new or not
+definition: '""-70m@m""'
+name: previously_seen_cloud_instance_modifications_by_user_search_window_begin_offset
+"
+previously_seen_cloud_compute_images_forget_window.yml,"description: Use this macro to determine how long to keep track of cloud instance images
+definition: '""-90d@d""'
+name: previously_seen_cloud_compute_images_forget_window
+"
+previously_seen_cloud_region_forget_window.yml,"description: Use this macro to determine how long to keep track of cloud regions
+definition: '""-90d@d""'
+name: previously_seen_cloud_region_forget_window
+"
+previously_seen_cloud_provisioning_activity_forget_window.yml,"description: Use this macro to determine how long to keep track of cloud provisioning locations
+definition: '""-90d@d""'
+name: previously_seen_cloud_provisioning_activity_forget_window
+"
+previously_seen_cloud_regions_search_window_begin_offset.yml,"description: Use this macro to determine how far into the past the window should be to determine if the region is new or not
+definition: '""-70m@m""'
+name: previously_seen_cloud_regions_search_window_begin_offset
+"
+previously_seen_windows_services_window.yml,"description: Use this macro to determine how far back you should be checking for new Windows services
+definition: '""-70m@m""'
+name: previously_seen_windows_services_window
+"
+previously_seen_windows_services_forget_window.yml,"description: Use this macro to determine how long to keep track of Windows services
+definition: '""-90d@d""'
+name: previously_seen_windows_services_forget_window
+"
+previously_seen_zoom_child_processes_forget_window.yml,"description: Use this macro to determine how long to keep track of zoom child processes
+definition: '""-90d@d""'
+name: previously_seen_zoom_child_processes_forget_window
+"
+previously_seen_zoom_child_processes_window.yml,"description: Use this macro to determine how far back you should be checking for new zoom child processes
+definition: '""-70m@m""'
+name: previously_seen_zoom_child_processes_window
+"
+printservice.yml,"definition: source=""wineventlog:microsoft-windows-printservice/operational"" OR source=""WinEventLog:Microsoft-Windows-PrintService/Admin""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: printservice
+"
+previously_unseen_cloud_provisioning_activity_window.yml,"description: Use this macro to determine how far back you should be checking for new provisioning activities
+definition: '""-70m@m""'
+name: previously_unseen_cloud_provisioning_activity_window
+"
+process_certutil.yml,"definition: (Processes.process_name=certutil.exe OR Processes.original_file_name=CertUtil.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_certutil"
+process_bitsadmin.yml,"definition: (Processes.process_name=bitsadmin.exe OR Processes.original_file_name=bitsadmin.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_bitsadmin"
+process_cmd.yml,"definition: (Processes.process_name=cmd.exe OR Processes.original_file_name=Cmd.Exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_cmd"
+process_copy.yml,"definition: (Processes.process_name=copy.exe OR Processes.original_file_name=copy.exe OR Processes.process_name=xcopy.exe OR Processes.original_file_name=xcopy.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_copy"
+process_csc.yml,"definition: (Processes.process_name=csc.exe OR Processes.original_file_name=csc.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_csc"
+process_fodhelper.yml,"definition: (Processes.process_name=fodhelper.exe OR Processes.original_file_name=FodHelper.EXE)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_fodhelper
+"
+process_diskshadow.yml,"definition: (Processes.process_name=diskshadow.exe OR Processes.original_file_name=diskshadow.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_diskshadow"
+process_dxdiag.yml,"definition: (Processes.process_name=dxdiag.exe OR Processes.original_file_name=dxdiag.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_dxdiag"
+process_gpupdate.yml,"definition: (Processes.process_name=gpupdate.exe OR Processes.original_file_name=GPUpdate.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_gpupdate
+"
+process_dllhost.yml,"definition: (Processes.process_name=dllhost.exe OR Processes.original_file_name=dllhost.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_dllhost
+"
+process_dsquery.yml,"definition: (Processes.process_name=dsquery.exe OR Processes.original_file_name=dsquery.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_dsquery
+"
+process_esentutl.yml,"definition: (Processes.process_name=esentutl.exe OR Processes.original_file_name=esentutl.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_esentutl
+"
+process_hh.yml,"definition: (Processes.process_name=hh.exe OR Processes.original_file_name=HH.EXE)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_hh"
+process_microsoftworkflowcompiler.yml,"definition: (Processes.process_name=microsoft.workflow.compiler.exe OR Processes.original_file_name=Microsoft.Workflow.Compiler.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_microsoftworkflowcompiler
+"
+process_installutil.yml,"definition: (Processes.process_name=installutil.exe OR Processes.original_file_name=InstallUtil.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_installutil
+"
+process_mshta.yml,"definition: (Processes.process_name=mshta.exe OR Processes.original_file_name=MSHTA.EXE)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_mshta"
+process_msiexec.yml,"definition: (Processes.process_name=msiexec.exe OR Processes.original_file_name=msiexec.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_msiexec"
+process_msbuild.yml,"definition: (Processes.process_name=msbuild.exe OR Processes.original_file_name=MSBuild.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_msbuild
+"
+process_net.yml,"definition: (Processes.process_name=""net.exe"" OR Processes.original_file_name=""net.exe"" OR Processes.process_name=""net1.exe"" OR Processes.original_file_name=""net1.exe"")
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_net"
+process_ntdsutil.yml,"definition: (Processes.process_name=ntdsutil.exe OR Processes.original_file_name=ntdsutil.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_ntdsutil
+"
+process_netsh.yml,"definition: (Processes.process_name=netsh.exe OR Processes.original_file_name=netsh.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_netsh"
+process_curl.yml,"definition: (Processes.process_name=curl.exe OR Processes.original_file_name=Curl.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_curl"
+process_nltest.yml,"definition: (Processes.process_name=nltest.exe OR Processes.original_file_name=nltestrk.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_nltest
+"
+process_procdump.yml,"definition: (Processes.process_name=procdump.exe OR Processes.process_name=procdump64.exe OR Processes.original_file_name=procdump)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_procdump"
+process_reg.yml,"definition: (Processes.process_name=reg.exe OR Processes.original_file_name=reg.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_reg"
+process_regsvcs.yml,"definition: (Processes.process_name=regsvcs.exe OR Processes.original_file_name=RegSvcs.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_regsvcs
+"
+process_psexec.yml,"definition: (Processes.process_name=psexec.exe OR Processes.process_name=psexec64.exe OR Processes.original_file_name=psexec.c)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_psexec"
+process_ping.yml,"definition: (Processes.process_name=ping.exe OR Processes.original_file_name=ping.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_ping"
+process_regsvr32.yml,"definition: (Processes.process_name=regsvr32.exe OR Processes.original_file_name=REGSVR32.EXE)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_regsvr32"
+process_regasm.yml,"definition: (Processes.process_name=regasm.exe OR Processes.original_file_name=RegAsm.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_regasm"
+process_powershell.yml,"definition: (Processes.process_name=pwsh.exe OR Processes.process_name=sqlps.exe OR Processes.process_name=sqltoolsps.exe OR Processes.process_name=powershell.exe OR Processes.process_name=powershell_ise.exe OR Processes.original_file_name=pwsh.dll OR Processes.original_file_name=PowerShell.EXE OR Processes.original_file_name=powershell_ise.EXE)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_powershell"
+process_rclone.yml,"definition: (Processes.original_file_name=rclone.exe OR Processes.process_name=rclone.exe)
+description: Matches the process with its original file name.
+name: process_rclone"
+process_route.yml,"definition: (Processes.process_name=route.exe OR Processes.original_file_name=route.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_route"
+process_runas.yml,"definition: (Processes.process_name=runas.exe OR Processes.original_file_name=runas.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_runas"
+process_rundll32.yml,"definition: (Processes.process_name=rundll32.exe OR Processes.original_file_name=RUNDLL32.EXE)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_rundll32"
+process_schtasks.yml,"definition: (Processes.process_name=schtasks.exe OR Processes.original_file_name=schtasks.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_schtasks
+"
+process_sdelete.yml,"definition: (Processes.process_name=sdelete.exe OR Processes.original_file_name=sdelete.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_sdelete"
+process_verclsid.yml,"definition: (Processes.process_name=verclsid.exe OR Processes.original_file_name=verclsid.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_verclsid"
+process_setspn.yml,"definition: (Processes.process_name=setspn.exe OR Processes.original_file_name=setspn.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_setspn
+"
+process_vssadmin.yml,"definition: (Processes.process_name=vssadmin.exe OR Processes.original_file_name=VSSADMIN.EXE)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_vssadmin
+"
+process_wmic.yml,"definition: (Processes.process_name=wmic.exe OR Processes.original_file_name=wmic.exe)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_wmic"
+process_wermgr.yml,"definition: (Processes.process_name=wermgr.exe OR Processes.original_file_name=wermgr.EXE)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_wermgr"
+process_wbadmin.yml,"definition: (Processes.process_name=wbadmin.exe OR Processes.original_file_name=WBADMIN.EXE)
+description: Matches the process with its original file name, data for this macro came from https://strontic.github.io/
+name: process_wbadmin
+"
+prohibited_apps_launching_cmd.yml,"definition: '| inputlookup prohibited_apps_launching_cmd | rename prohibited_applications
+  as parent_process_name | eval parent_process_name=""*"" . parent_process_name | table
+  parent_process_name'
+description: This macro outputs a list of process that should not be the parent process
+  of cmd.exe
+name: prohibited_apps_launching_cmd
+"
+prohibited_softwares.yml,"definition: lookup prohibited_softwares app as process_name OUTPUT is_prohibited
+  | search is_prohibited=True
+description: This macro limits the output to process_names that have been marked as
+  prohibited
+name: prohibited_softwares
+"
+remoteconnectionmanager.yml,"definition: source=""WinEventLog:Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: remoteconnectionmanager"
+risk_index.yml,"definition: index=risk
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: risk_index
+"
+ransomware_notes.yml,"definition: lookup ransomware_notes_lookup ransomware_notes as file_name OUTPUT status
+  as ""Known Ransomware Notes"" | search ""Known Ransomware Notes""=True
+description: This macro limits the output to files that have been identified as a
+  ransomware note
+name: ransomware_notes
+"
+ransomware_extensions.yml,"definition: lookup update=true ransomware_extensions_lookup Extensions AS file_extension
+  OUTPUT Name | search Name !=False
+description: This macro limits the output to files that have extensions associated
+  with ransomware
+name: ransomware_extensions
+"
+splunk_crash_log.yml,"definition: (index=_internal AND sourcetype=splunkd_crash_log)
+description: Searches through the Splunk Crash Log for low-level errors and crashes
+name: splunk_crash_log"
+s3_accesslogs.yml,"definition: sourcetype=aws:s3:accesslogs
+description: customer specific splunk configurations(eg- index, source, sourcetype) for AWS cloudwatch vpc logs. Replace the macro definition with configurations for your Splunk Environmnent.
+name: s3_accesslogs
+"
+security_content_summariesonly.yml,"definition: summariesonly=false allow_old_summaries=true fillnull_value=null
+description: search data model's summaries only 
+name: security_content_summariesonly
+"
+splunkd.yml,"definition: index=_internal sourcetype=splunkd
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: splunkd"
+security_content_ctime.yml,"arguments:
+  - field
+definition: 'convert timeformat=""%Y-%m-%dT%H:%M:%S"" ctime($field$)'
+description: convert epoch time to string
+name: security_content_ctime
+"
+security_group_api_calls.yml,"definition: (eventName=AuthorizeSecurityGroupIngress OR eventName=CreateSecurityGroup
+  OR eventName=DeleteSecurityGroup OR eventName=DescribeClusterSecurityGroups OR eventName=DescribeDBSecurityGroups
+  OR eventName=DescribeSecurityGroupReferences OR eventName=DescribeSecurityGroups
+  OR eventName=DescribeStaleSecurityGroups OR eventName=RevokeSecurityGroupIngress
+  OR eventName=UpdateSecurityGroupRuleDescriptionsIngress)
+description: This macro is a list of AWS event names associated with security groups
+name: security_group_api_calls
+"
+splunk_python.yml,"definition: index=_internal sourcetype=splunk_python
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: splunk_python
+"
+splunkd_investigation_rest_handler.yml,"definition: index=_internal sourcetype=investigation_rest_handler
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: splunkd_investigation_rest_handler"
+splunkd_failed_auths.yml,"definition: index=_audit ""action=login attempt"" ""info=failed""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: splunkd_failed_auths"
+remove_valid_domains.yml,"definition: eval domain=trim(domain,""*"") | search NOT[| inputlookup domains]  NOT[
+  |inputlookup cim_corporate_email_domain_lookup] NOT[inputlookup cim_corporate_web_domain_lookup]
+  | eval domain=""*""+domain+""*""
+description: This macro removes valid domains from the output
+name: remove_valid_domains
+"
+splunkd_web.yml,"definition: index=_internal sourcetype=splunk_web_access
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: splunkd_web"
+splunkd_webx.yml,"definition: index=_internal sourcetype=splunk_web_access
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: splunkd_webx"
+stream_http.yml,"definition: sourcetype=stream:http
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: stream_http
+"
+stream_tcp.yml,"definition: sourcetype=stream:tcp
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: stream_tcp"
+splunkd_ui.yml,"definition: index=_internal sourcetype=splunkd_ui_access
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: splunkd_ui"
+subjectinterfacepackage.yml,"definition: sourcetype=""PwSh:SubjectInterfacePackage""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: subjectinterfacepackage"
+suspicious_email_attachments.yml,"definition: lookup update=true is_suspicious_file_extension_lookup file_name OUTPUT suspicious
+  | search suspicious=true
+description: This macro limits the output to email attachments that have suspicious
+  extensions
+name: suspicious_email_attachments
+"
+splunkda.yml,"definition: index=_internal sourcetype=splunkd_access
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: splunkda"
+stream_dns.yml,"definition: sourcetype=stream:dns
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: stream_dns"
+system_network_configuration_discovery_tools.yml,"definition: (process_name= ""arp.exe"" OR process_name= ""at.exe"" OR process_name= ""attrib.exe""
+  OR process_name= ""cscript.exe"" OR process_name= ""dsquery.exe"" OR process_name= ""hostname.exe""
+  OR process_name= ""ipconfig.exe"" OR process_name= ""mimikatz.exe"" OR process_name=
+  ""nbstat.exe"" OR process_name= ""net.exe"" OR process_name= ""netsh.exe"" OR process_name=
+  ""nslookup.exe"" OR process_name= ""ping.exe"" OR process_name= ""quser.exe"" OR process_name=
+  ""qwinsta.exe"" OR process_name= ""reg.exe"" OR process_name= ""runas.exe"" OR process_name=
+  ""sc.exe"" OR process_name= ""schtasks.exe"" OR process_name= ""ssh.exe"" OR process_name=
+  ""systeminfo.exe"" OR process_name= ""taskkill.exe"" OR process_name= ""telnet.exe"" OR
+  process_name= ""tracert.exe"" OR process_name=""wscript.exe"" OR process_name= ""xcopy.exe"")
+description: This macro is a list of process that can be used to discover the network
+  configuration
+name: system_network_configuration_discovery_tools
+"
+uacbypass_process_name.yml,"definition: 'BitlockerWizardElev.exe,cliconfg.exe,clipup.exe,cmstp.exe,CompMgmtLauncher.exe,consent.exe,control.exe,credwiz.exe,dccw.exe,dismhost.exe,EventVwr.exe,fodhelper.exe,GWXUXWorker.exe,inetmgr.exe,iscsicli.exe,mcx2prov.exe,migwiz.exe,mmc.exe,msconfig.exe,oobe.exe,osk.exe,pkgmgr.exe,recdisc.exe,rstrui.exe,sdclt.exe,setupsqm.exe,slui.exe,sysprep.exe,SystemPropertiesAdvanced.exe,taskhost.exe,TpmInit.exe,tzsync.exe,w32tm.exe,WerFault.exe,WSReset.exe,wusa.exe'
+description: A listing of processes known to be abused for User Account Control bypass exploitation.
+name: uacbypass_process_name"
+suspicious_writes.yml,"definition: lookup suspicious_writes_lookup file as file_name OUTPUT note as ""Reference""
+  | search ""Reference"" != False
+description: This macro limites the output to file names that have been marked as
+  suspicious
+name: suspicious_writes
+"
+sysmon.yml,"definition: sourcetype=XmlWinEventLog:Microsoft-Windows-Sysmon/Operational OR source=XmlWinEventLog:Microsoft-Windows-Sysmon/Operational OR source=Syslog:Linux-Sysmon/Operational
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: sysmon
+"
+windows_shells.yml,"definition: (Processes.process_name=cmd.exe OR Processes.process_name=powershell.exe OR Processes.process_name=pwsh.exe OR Processes.process_name=sh.exe OR Processes.process_name=bash.exe OR Processes.process_name=wscript.exe OR Processes.process_name=cscript.exe)
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: windows_shells
+"
+uncommon_processes.yml,"definition: lookup update=true lookup_uncommon_processes_default process_name as process_name
+  outputnew uncommon_default,category_default,analytic_story_default,kill_chain_phase_default,mitre_attack_default
+  | lookup update=true  lookup_uncommon_processes_local process_name as process_name
+  outputnew uncommon_local,category_local,analytic_story_local,kill_chain_phase_local,mitre_attack_local
+  | eval uncommon = coalesce(uncommon_default, uncommon_local), analytic_story = coalesce(analytic_story_default,
+  analytic_story_local), category=coalesce(category_default, category_local), kill_chain_phase=coalesce(kill_chain_phase_default,
+  kill_chain_phase_local), mitre_attack=coalesce(mitre_attack_default, mitre_attack_local)
+  | fields - analytic_story_default, analytic_story_local, category_default, category_local,
+  kill_chain_phase_default, kill_chain_phase_local, mitre_attack_default, mitre_attack_local,
+  uncommon_default, uncommon_local | search uncommon=true
+description: This macro limits the output to processes that have been marked as uncommon
+name: uncommon_processes
+"
+wineventlog_security.yml,"definition: eventtype=wineventlog_security OR Channel=security OR source=XmlWinEventLog:Security
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: wineventlog_security
+"
+wineventlog_system.yml,"definition: eventtype=wineventlog_system
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: wineventlog_system
+"
+wineventlog_application.yml,"definition: eventtype=wineventlog_application OR source=""XmlWinEventLog:Application""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: wineventlog_application"
+wineventlog_task_scheduler.yml,"definition: source=""WinEventLog:Microsoft-Windows-TaskScheduler/Operational""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: wineventlog_task_scheduler"
+zeek_ssl.yml,"definition: index=zeek sourcetype=""zeek:ssl:json""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: zeek_ssl
+"
+wmi.yml,"definition: sourcetype=""wineventlog:microsoft-windows-wmi-activity/operational""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: wmi
+"
+zeek_rpc.yml,"definition: index=zeek sourcetype=""zeek:rpc:json""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: zeek_rpc
+"
+zeek_x509.yml,"definition: sourcetype=""zeek:x509:json""
+description: customer specific splunk configurations(eg- index, source, sourcetype).
+  Replace the macro definition with configurations for your Splunk Environmnent.
+name: zeek_x509
+"
