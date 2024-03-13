@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 import os
 import re
 
@@ -48,11 +48,15 @@ def parse_endpoint_url(url):
     h4_req_fields = [req.text.strip() for req in soup.find('h4', id='required-fields').find_next_sibling('ul')] \
         if soup.find('h4', id='required-fields') else "N/A"
 
+    # mitre attack codes finder
+    mitre_attack_codes = [tcode.text.strip() for tcode in soup.findAll("a", href=True) if
+                          "https://attack.mitre.org/techniques" in tcode['href']]
+
     # parsed data dictionary
     data = {
         "url": url if url else "N/A",
         "title": soup.find("h1", id="page-title").text.strip() if soup.find("h1", id="page-title") else "N/A",
-        "mitre_attack_codes": [tcode.text.strip() for tcode in soup.findAll("a", href=True) if "https://attack.mitre.org/techniques" in tcode['href']],
+        "mitre_attack_codes": list(filter(lambda item: not bool(urlparse(item).scheme), mitre_attack_codes)),
         "description": soup.find("h4", id="description").find_next_sibling("p").text.strip() if soup.find("h4", id="description").find_next_sibling("p").text.strip() else "N/A",
         "type": [link.text.strip() for link in soup.find_all("a", href=True) if "Types" in link['href']],
         "last_update": soup.find("time").text.strip() if soup.find("time") else "N/A",
