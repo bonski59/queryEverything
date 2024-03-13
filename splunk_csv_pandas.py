@@ -21,4 +21,7 @@ def matches_tcode(row, tcodes_set):
 
 filtered_df = df[df['mitre_attack_codes'].apply(lambda x: matches_tcode(x, tcodes))]
 
-print(filtered_df['title'])
+
+output_csv_path = 'splunk_mission_tcodes.csv'  # Specify your output file path
+filtered_df.to_csv(output_csv_path, index=False)
+
