@@ -8,7 +8,7 @@ df = pd.read_csv(csv_file_path)
 
 print(df)
 
-with open('All_Tcodes_final.txt', "r") as file:
+with open('../All_Tcodes_final.txt', "r") as file:
     tcodes = set(file.read().splitlines())
 
 def matches_tcode(row, tcodes_set):
@@ -21,7 +21,8 @@ def matches_tcode(row, tcodes_set):
 
 filtered_df = df[df['mitre_attack_codes'].apply(lambda x: matches_tcode(x, tcodes))]
 
+print(filtered_df)
 
-output_csv_path = 'splunk_mission_tcodes.csv'  # Specify your output file path
-filtered_df.to_csv(output_csv_path, index=False)
+#output_csv_path = 'splunk_mission_tcodes.csv'  # Specify your output file path
+#filtered_df.to_csv(output_csv_path, index=False)
 

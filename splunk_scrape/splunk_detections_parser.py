@@ -84,7 +84,7 @@ def parse_detections_page():
 
 # takes the detections repo and makes a txt file listing each of them line by line, so we don't need to keep querying
 def make_detections_repo_file(list_links):
-    file = './detections_repo_links.txt'
+    file = 'detections_repo_links.txt'
     with open(file, "w") as f:
         for link in list_links:
             if verify_detections_repo(link):
@@ -107,7 +107,7 @@ def verify_detections_repo(url):
 
 
 def parse_all_repo_links():
-    with open('./detections_repo_links.txt', 'r') as file:
+    with open('detections_repo_links.txt', 'r') as file:
         for line in file:
             print(line)
             if fetch_page_data(line.strip('\n')) is None:
