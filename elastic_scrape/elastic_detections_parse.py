@@ -4,6 +4,8 @@ import csv
 from urllib.parse import urljoin, urlparse
 import os
 import re
+from test_data import read_random_lines
+
 
 # global variable used for later
 detect_repo = "https://www.elastic.co/guide/en/security/7.16/prebuilt-rules.html"
@@ -45,43 +47,38 @@ def save_to_csv(data, filename="elastic_research_output.csv"):
 def parse_endpoint_url(url):
     soup = fetch_page_data(url)
 
-    # Assuming the structure based on common patterns; you may need to adjust these
+    # find the type of query
 
-    # macros parse
-    """my_macros = [req.text.strip() for req in soup.find('h4', id='macros').find_next_sibling('ul')]
+    def find_bullet(bullet_bold_title):
+        # find the bold title of a section and use the return to parse what you need.
+        return soup.find(lambda tag: tag.name == "p" and tag.find('strong', string=bullet_bold_title))
 
-    # required fields parse
-    h4_req_fields = [req.text.strip() for req in soup.find('h4', id='required-fields').find_next_sibling('ul')] \
-        if soup.find('h4', id='required-fields') else "N/A"
-
-    # mitre attack codes finder
-    mitre_attack_codes = [tcode.text.strip() for tcode in soup.findAll("a", href=True) if
-                          "https://attack.mitre.org/techniques" in tcode['href']]"""
-
+    def mitre_data(tac_or_tech, data_id):
+        return [tactic.find_next_sibling('div').find('li', string=lambda text: data_id in text if text else False).text.strip().replace(data_id, "") for tactic in soup.find_all('p', string=tac_or_tech)]
     # parsed data dictionary
     data = {
+        #    ## <-- this tag means they have been tested successfully among at least 10/608 urls (i know thats not a lot)
+        
         "url": url if url else "N/A",
-        #"title": soup.find("h2", {"class": "title"}).text.strip() if soup.find("h2", {"class": "title"}) else "N/A",
+        "title": soup.find("h2", {"class": "title"}).text.strip() if soup.find("h2", {"class": "title"}) else "N/A",
+        "mitre_tactic_name": mitre_data("Tactic:", "Name: "),
+        "mitre_tactic": mitre_data("Tactic:", "ID: "),
+        "mitre_technique_name": mitre_data("Technique:", "Name: "),
+        "mitre_technique": mitre_data("Technique:", "ID: "),
+        "description": soup.find("h2", {"class": "title"}).find_next("p").text.strip() if soup.find("h2", {"class": "title"}) else "N/A",
+        "type": find_bullet("Rule type").text.strip().split(": ")[1:] if find_bullet("Rule type") else "N/A",
+        "elastic_query": soup.find("div", {"class": "pre_wrapper lang-js"}).text.strip().replace("\n", "") if soup.find("div", {"class": "pre_wrapper lang-js"}) else "N/A",
+        "rule_indices": [indi.text.strip() for indi in find_bullet("Rule indices").find_next("div", {"class": "ulist itemizedlist"}).find_all("li")] if find_bullet("Rule indices") else "N/A",
+        "references": [href.get("href") for href in find_bullet("References").find_next("div", {"class": "ulist itemizedlist"}).find_all("a")] if find_bullet("References") else "N/A",
+        "tags": [tag.text.strip() for tag in find_bullet("Tags").find_next("div", {"class": "ulist itemizedlist"}).find_all("li")] if find_bullet("Tags") else "N/A"
 
-        # "mitre_attack_codes": list(filter(lambda item: not bool(urlparse(item).scheme), mitre_attack_codes)),
-        # "description": soup.find("h4", id="description").find_next_sibling("p").text.strip() if soup.find("h4", id="description").find_next_sibling("p").text.strip() else "N/A",
-        # "type": [link.text.strip() for link in soup.find_all("a", href=True) if "Types" in link['href']],
-        # "last_update": soup.find("time").text.strip() if soup.find("time") else "N/A",
-        # "splunk_query": soup.find("td", {"class": "rouge-code"}).text.strip() if soup.find("td", {"class": "rouge-code"}) else "N/A",
-        # "required_macros": list(filter(lambda item: item != '', my_macros)),
-        # "required_fields": list(filter(lambda item: item != '', h4_req_fields)),
-        # "false_positives": soup.find('h4', id='known-false-positives').find_next_sibling("p").text.strip() if soup.find('h4', id='known-false-positives').find_next_sibling("p").text.strip() else "N/A",
-        # "associated_analytics": [code.text.strip() for code in soup.findAll("a", href=True) if "stories" in code['href'] if "Analytic Stories" not in code],
-        # "analytic_stories": [urljoin("https://research.splunk.com", code.get("href")) for code in soup.findAll("a", href=True) if "stories" in code['href'] if "Analytic Stories" not in code],
-        # "references": [href.get("href") for href in soup.find('h4', id='reference').find_next_sibling('ul').findAll("a", href=True)] if soup.find('h4', id='reference').find_next_sibling('ul') else "N/A",
-        # "tags": [tag.text.strip() for tag in soup.find("span", itemprop="keywords").find_all("a") if "tags" in tag["href"]],
-        # "category": [cat.text.strip() for cat in soup.find_all("a", href=True) if "categories" in cat["href"]]
     }
 
-    return data
-    #save_to_csv(data)
 
-print(parse_endpoint_url("https://www.elastic.co/guide/en/security/7.16/persistence-via-hidden-run-key-detected.html"))
+    save_to_csv(data)
+
+# testing
+#[print(parse_endpoint_url(the_url).values()) for the_url in read_random_lines('detections_repo_links.txt')]
 
 
 # reads the detection repo, finds all filtered links, and returns a list of links
@@ -111,18 +108,6 @@ def make_detections_repo_file(list_links):
 # test or use to generate ./detections_repo_links.txt
 # make_detections_repo_file(parse_detections_page())
 
-
-# verify links found in detect repo are the correct links we want to follow
-"""def verify_detections_repo(url):
-
-    pattern = r"https://research\.splunk\.com/endpoint*-*-*-*"
-
-    if re.match(pattern, url):
-        return True
-    else:
-        return False"""
-
-
 def parse_all_repo_links():
     with open('detections_repo_links.txt', 'r') as file:
         for line in file:
@@ -132,8 +117,8 @@ def parse_all_repo_links():
             parse_endpoint_url(line.strip('\n'))
 
 
-#if __name__ == "__main__":
-    #parse_all_repo_links()
+if __name__ == "__main__":
+    parse_all_repo_links()
     #parse_endpoint_url("https://research.splunk.com/endpoint/44fddcb2-8d3b-454c-874e-7c6de5a4f7ac/")
 
 
