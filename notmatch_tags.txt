@@ -1,0 +1,15 @@
+AWS
+Cloud
+macOS
+Linux
+Okta
+Zoom
+Azure
+ML
+Google Workspace
+GCP
+/etc/passwd and /etc/shadow
+Linux and Mac File and Directory Permissions Modification
+Sudo and Sudo Caching
+Plist File Modification
+Cron

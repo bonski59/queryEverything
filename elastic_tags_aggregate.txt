@@ -1,0 +1,45 @@
+Application
+Linux
+APM
+cyberarkpas
+Lateral Movement
+Collection
+Cloud
+Defense Evasion
+SecOps
+Discovery
+Google Workspace
+Configuration Audit
+Host
+ML
+Okta
+Command and Control
+Persistence
+Continuous Monitoring
+AWS
+Post-Execution
+Impact
+Azure
+Network
+Asset Visibility
+Windows
+Elastic
+Elastic Endgame
+Network Security
+Threat Detection
+Authentication
+Privilege Escalation
+Execution
+Communication
+Monitoring
+Credential Access
+macOS
+Microsoft 365
+Zoom
+Identity and Access
+Initial Access
+Log Auditing
+Identity
+Endpoint Security
+Data Protection
+GCP

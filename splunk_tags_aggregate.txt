@@ -1,0 +1,271 @@
+Resource Development
+Disk Wipe
+Modify Authentication Process
+Pre-OS Boot
+Local Account
+Access Token Manipulation
+Query Registry
+Rundll32
+Odbcconf
+Non-Application Layer Protocol
+Create or Modify System Process
+Pass the Ticket
+Hidden Window
+Command And Control
+Modify Registry
+Unix Shell Configuration Modification
+Local Email Collection
+Credentials in Registry
+Mshta
+AS-REP Roasting
+Time Based Evasion
+Unsecured Credentials
+Cached Domain Credentials
+Network_Resolution
+Password Managers
+User Execution
+Spearphishing Attachment
+Disable or Modify Cloud Firewall
+Launch Agent
+Virtualization/Sandbox Evasion
+Windows Remote Management
+Valid Accounts
+Network_Traffic
+Credentials from Password Stores
+Create Process with Token
+Data from Local System
+Boot or Logon Autostart Execution
+Splunk Behavioral Analytics
+Control Panel
+NTFS File Attributes
+Clear Windows Event Logs
+Indirect Command Execution
+Masquerade File Type
+Regsvr32
+Fileless Storage
+Subvert Trust Controls
+OS Credential Dumping
+Token Impersonation/Theft
+Service Stop
+Screen Capture
+Private Keys
+LSA Secrets
+Active Setup
+Local Groups
+MMC
+Archive Collected Data
+Defense Evasion
+Automated Exfiltration
+Updates
+Forced Authentication
+Windows Command Shell
+Deobfuscate/Decode Files or Information
+Run Virtual Instance
+DLL Side-Loading
+System Firmware
+System Information Discovery
+Security Account Manager
+Boot or Logon Initialization Scripts
+RDP Hijacking
+Email Addresses
+Abuse Elevation Control Mechanism
+Persistence
+Transfer Data to Cloud Account
+Clipboard Data
+Process Discovery
+Splunk Cloud
+Collection
+Account Access Removal
+InstallUtil
+System Binary Proxy Execution
+Exfiltration Over C2 Channel
+Endpoint
+Exfiltration Over Web Service
+Match Legitimate Name or Location
+System Time Discovery
+Dynamic Linker Hijacking
+System Network Connections Discovery
+Windows Management Instrumentation
+Bootkit
+Gather Victim Network Information
+Exploitation of Remote Services
+Port Monitors
+Network Share Discovery
+Scheduled Task
+Hide Artifacts
+Unix Shell
+Image File Execution Options Injection
+Remote System Discovery
+Command and Scripting Interpreter
+Rename System Utilities
+Domain Account
+Logon Script (Windows)
+Spearphishing Link
+Security Support Provider
+Discovery
+Active Scanning
+Web Shell
+Trusted Developer Utilities Proxy Execution
+Group Policy Preferences
+Domain Groups
+GUI Input Capture
+/etc/passwd and /etc/shadow
+Password Policy Discovery
+Windows File and Directory Permissions Modification
+Portable Executable Injection
+Mavinject
+Permission Groups Discovery
+Shared Modules
+XSL Script Processing
+Steal or Forge Kerberos Tickets
+MSBuild
+Domain Accounts
+Compiled HTML File
+SIP and Trust Provider Hijacking
+IIS Components
+Kerberoasting
+Initial Access
+Right-to-Left Override
+Application Shimming
+Kernel Modules and Extensions
+Execution
+Impact
+Credentials from Web Browsers
+Archive via Utility
+Dynamic-link Library Injection
+Group Policy Modification
+Web Service
+Service Execution
+Gather Victim Host Information
+Exfiltration Over Unencrypted Non-C2 Protocol
+Windows Management Instrumentation Event Subscription
+At
+External Remote Services
+Reconnaissance
+Impair Defenses
+LSASS Driver
+Parent PID Spoofing
+Obfuscated Files or Information
+Inhibit System Recovery
+Exfiltration Over Alternative Protocol
+JavaScript
+Disk Structure Wipe
+Internal Proxy
+CMSTP
+Brute Force
+Disable or Modify Tools
+Replication Through Removable Media
+Defacement
+Golden Ticket
+Mail Protocols
+Protocol Tunneling
+Malicious Link
+Bypass User Account Control
+Event Triggered Execution
+Process Injection
+Phishing
+Data Destruction
+PowerShell
+Systemd Timers
+Accessibility Features
+Hardware
+Screensaver
+Regsvcs/Regasm
+Domain Policy Modification
+Distributed Component Object Model
+RC Scripts
+Services Registry Permissions Weakness
+Domain Trust Discovery
+File Deletion
+Credentials
+Tool
+BITS Jobs
+Install Root Certificate
+Lateral Movement
+Visual Basic
+DLL Search Order Hijacking
+Registry Run Keys / Startup Folder
+Scheduled Task/Job
+Lateral Tool Transfer
+Indicator Blocking
+Linux and Mac File and Directory Permissions Modification
+Sudo and Sudo Caching
+Gather Victim Identity Information
+IP Addresses
+Remote Services
+File and Directory Permissions Modification
+Email Collection
+Proxy
+DCSync
+Credential Access
+Credentials In Files
+Print Processors
+Splunk Enterprise
+Disable or Modify System Firewall
+Exfiltration
+Plist File Modification
+Internet Connection Discovery
+Malicious File
+Change Default File Association
+Exploit Public-Facing Application
+Compromise Software Supply Chain
+SSH Authorized Keys
+System Services
+Time Providers
+Authentication
+Rogue Domain Controller
+Exploitation for Client Execution
+SID-History Injection
+Setuid and Setgid
+Windows Service
+Hidden Files and Directories
+System Shutdown/Reboot
+Steal or Forge Authentication Certificates
+Create Account
+Account Manipulation
+SSH
+Cron
+SMB/Windows Admin Shares
+Exploitation for Privilege Escalation
+Risk
+Disable Windows Event Logging
+Msiexec
+Hardware Additions
+Server Software Component
+LSASS Memory
+System Network Configuration Discovery
+Use Alternate Authentication Material
+Web
+Hijack Execution Flow
+Network Share Connection Removal
+NTDS
+Masquerading
+Component Object Model Hijacking
+Component Object Model
+Splunk Enterprise Security
+Account Discovery
+Path Interception by Unquoted Path
+Compile After Delivery
+Remote Access Software
+Indicator Removal from Tools
+Privilege Escalation
+Application Layer Protocol
+Remote Service Session Hijacking
+Masquerade Task or Service
+Remote Desktop Protocol
+Mark-of-the-Web Bypass
+Input Capture
+Local Accounts
+Credential Stuffing
+Ingress Tool Transfer
+Change
+System Owner/User Discovery
+Software Deployment Tools
+Password Spraying
+DNS
+Verclsid
+Rootkit
+Indicator Removal
+Data Staged
+System Script Proxy Execution
+Data Encrypted for Impact
