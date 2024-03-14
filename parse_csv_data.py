@@ -109,7 +109,8 @@ def filter_titles(df):
 
 df = filter_titles(filter_splunk())
 #print(df[df['title'].str.contains(r'\blinux\b', case=False, regex=True)])
-df[df['type'] == '[\'Hunting\']'].to_csv('splunk_mission_queries.csv', index=False)
+#df[df['type'] == '[\'Hunting\']'].to_csv('splunk_mission_queries.csv', index=False)
+#print(df[df['type'] == '[\'Hunting\']'])
 # splunk_filtered = filter_splunk()
 # splunk_filtered.to_csv('splunk_mission_data-14MAR24.csv', index=False)
 
