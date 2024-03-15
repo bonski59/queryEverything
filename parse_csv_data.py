@@ -2,7 +2,7 @@ import pandas as pd
 import ast
 # Replace 'your_file_path.csv' with the path to your actual CSV file
 csv_splunk = '/home/assessor/PycharmProjects/queryEverything/queryEverything/splunk_scrape/splunk_research_output.csv'
-
+csv_mission_splunk = '/home/assessor/PycharmProjects/queryEverything/queryEverything/splunk_mission_queries.csv'
 csv_elastic = '/home/assessor/PycharmProjects/queryEverything/queryEverything/elastic_scrape/elastic_research_output.csv'
 
 csv_brf = '/home/assessor/PycharmProjects/queryEverything/queryEverything/brf/brf_data.csv'
@@ -111,11 +111,13 @@ def filter_titles(df):
 
     return filtered_df
 
+df = read_make_df(csv_mission_splunk)
+
 
 # df = filter_titles(filter_splunk())
 # df.to_csv('splunk_mission_queries.csv', index=False)
 # print(df[df['title'].str.contains(r'\blinux\b', case=False, regex=True)])
-# df[df['type'] == '[\'Hunting\']'].to_csv('splunk_mission_queries.csv', index=False)
+print(df[df['type'].isin(['[\'Hunting\']', '[\'TTP\']'])]) # .to_csv('splunk_mission_queries.csv', index=False)
 # print(df[df['type'] == '[\'Hunting\']'])
 # splunk_filtered = filter_splunk()
 # splunk_filtered.to_csv('splunk_mission_data-14MAR24.csv', index=False)
