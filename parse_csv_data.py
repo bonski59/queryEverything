@@ -5,12 +5,15 @@ csv_splunk = '/home/assessor/PycharmProjects/queryEverything/queryEverything/spl
 
 csv_elastic = '/home/assessor/PycharmProjects/queryEverything/queryEverything/elastic_scrape/elastic_research_output.csv'
 
+csv_brf = '/home/assessor/PycharmProjects/queryEverything/queryEverything/brf/brf_data.csv'
+
 txt_tcodes = "/home/assessor/PycharmProjects/queryEverything/queryEverything/All_Tcodes_final.txt"
 
 notmatch_tags = "/home/assessor/PycharmProjects/queryEverything/queryEverything/notmatch_tags.txt"
 
 # elastic headers ---- url,title,mitre_tactic_name,mitre_tactic,mitre_technique_name,mitre_technique,description,type,elastic_query,rule_indices,references,tags
 # splunk headers ---- url,title,mitre_attack_codes,description,type,last_update,splunk_query,required_macros,required_fields,false_positives,associated_analytics,analytic_stories,references,tags,category
+# BRF headers ----- Analytic,Host,Name,Network,Sub-Technique,Tactics,Technique,Threat Playbook,Validated
 
 def read_make_df(csv):
     # Reading the CSV file into a DataFrame
@@ -38,7 +41,6 @@ def notmatch_text_file(row, text_file):
         return False  # In case of evaluation error, assume no match
 
 
-
 def filter_df(frame, read_items, filter_column, out_or_in):
     if out_or_in == "in":
         return frame[frame[filter_column].apply(lambda x: matches_text_file(x, read_items))]
@@ -47,9 +49,12 @@ def filter_df(frame, read_items, filter_column, out_or_in):
     else:
         return "Wrong Syntax"
 
-# print(filter_df(read_make_df(csv_elastic), read_req_items(txt_tcodes), 'mitre_technique'))
 
+# print(filter_df(read_make_df(csv_brf), read_req_items(txt_tcodes), 'Technique', "in"))
+# with open(txt_tcodes, 'r') as tcode_file:
+#    req_tcodes = tcode_file.read().splitlines()
 
+# brf_codes = [code for code in pd.read_csv(csv_brf)['Technique']]
 
 
 
@@ -107,10 +112,11 @@ def filter_titles(df):
     return filtered_df
 
 
-df = filter_titles(filter_splunk())
-#print(df[df['title'].str.contains(r'\blinux\b', case=False, regex=True)])
-#df[df['type'] == '[\'Hunting\']'].to_csv('splunk_mission_queries.csv', index=False)
-#print(df[df['type'] == '[\'Hunting\']'])
+# df = filter_titles(filter_splunk())
+# df.to_csv('splunk_mission_queries.csv', index=False)
+# print(df[df['title'].str.contains(r'\blinux\b', case=False, regex=True)])
+# df[df['type'] == '[\'Hunting\']'].to_csv('splunk_mission_queries.csv', index=False)
+# print(df[df['type'] == '[\'Hunting\']'])
 # splunk_filtered = filter_splunk()
 # splunk_filtered.to_csv('splunk_mission_data-14MAR24.csv', index=False)
 

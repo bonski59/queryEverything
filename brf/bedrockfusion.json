@@ -1,0 +1,2617 @@
+{
+  "classification": "UNCLASSIFIED",
+  "ip": "172.25.7.236",
+  "playbooks": [
+    {
+      "Analytic": [
+        "CAR-2013-10-002",
+        "CAR-2013-10-002",
+        "CAR-2019-04-001",
+        "CAR-2021-01-008",
+        "CAR-2021-02-002"
+      ],
+      "Host": [
+        "process.parent.name:eventvwr.exe and event.action:\"Process Create (rule: ProcessCreate)\" and not process.executable:(\"C:\\Windows\\SysWOW64\\mmc.exe\" or \"C:\\Windows\\System32\\mmc.exe\")"
+      ],
+      "Name": "Abuse Elevation Control Mechanism",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005",
+        "TA0004"
+      ],
+      "Technique": "T1548",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-10-002",
+        "CAR-2013-10-002",
+        "CAR-2019-04-001",
+        "CAR-2021-01-008"
+      ],
+      "Host": [],
+      "Name": "Bypass User Account Control",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0005",
+        "TA0004"
+      ],
+      "Technique": "T1548",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [],
+      "Host": [
+        "event_id: 4672 event_id: 4674 event_id: 4703 event_id: 4673 event_id: 4656 with the ACCESS_MASK == 0x1400 (PROCESS_QUERY_INFORMATION) ACCESS_MASK == 0x1000 (PROCESS_QUERY_LIMITED_INFORMATION) followed by event_id: 4663"
+      ],
+      "Name": "Access Token Manipulation",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005",
+        "TA0004"
+      ],
+      "Technique": "T1134",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Account Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1087",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001"
+      ],
+      "Host": [
+        "Event_ID:4798 Event_ID:1 AND command.line:\"*net user*"
+      ],
+      "Name": "Local Account",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1087",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001"
+      ],
+      "Host": [
+        "event_id:1 AND command_line:\"net user*\"",
+        "event_id:1 AND command_line:\"net group*"
+      ],
+      "Name": "Domain Account",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1087",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques event.code : 4738 or 4728 or 4670"
+      ],
+      "Name": "Account Manipulation",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0003"
+      ],
+      "Technique": "T1098",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002"
+      ],
+      "Host": [
+        "Event_ID:1 OR Event_ID:4688 AND commandline:\"*<command>*"
+      ],
+      "Name": "Application Window Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1010",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-07-005",
+        "CAR-2013-07-005"
+      ],
+      "Host": [
+        "Event_ID: 11 AND *.<compressed file extension here> Event_ID: 1 AND *compression executable here*",
+        "Event_ID: 11 AND *.<compressed file extension here> AND (C:\\Windows\\temp\\* OR %APPDATA%\\temp*)"
+      ],
+      "Name": "Archive Collected Data",
+      "Network": [
+        "smb.fn == *.<compression type here>",
+        "ftp.fn == *.<compression type here>",
+        "email.fn == *.<compression type here>"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0009"
+      ],
+      "Technique": "T1560",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-07-005",
+        "CAR-2013-07-005"
+      ],
+      "Host": [
+        "Event_ID: 11 AND *.<compressed file extension here>",
+        "Event_ID: 1 AND *compression executable here*",
+        "Event_ID: 11 AND *.<compressed file extension here> AND (C:\\Windows\\temp\\* OR %APPDATA%\\temp*)"
+      ],
+      "Name": "Archive via Utility",
+      "Network": [
+        "smb.fn == *.<compression type here>",
+        "ftp.fn == *.<compression type here>",
+        "email.fn == *.<compression type here>"
+      ],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0009"
+      ],
+      "Technique": "T1560",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-004",
+        "CAR-2021-05-004",
+        "CAR-2021-05-005"
+      ],
+      "Host": [
+        "powershell.command.name: *Bits* event_id: 1 and process_command_line: *bitsadmin*",
+        "event_id: 4688 and process_command_line: *bitsadmin*"
+      ],
+      "Name": "BITS Jobs",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005",
+        "TA0003"
+      ],
+      "Technique": "T1197",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-03-001",
+        "CAR-2013-03-001",
+        "CAR-2020-05-003"
+      ],
+      "Host": [],
+      "Name": "Boot or Logon Autostart Execution",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1547",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-03-001",
+        "CAR-2013-03-001",
+        "CAR-2020-05-003"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "event_id:13 and RuleName:T1060",
+        "RunKey event_id: 4688 and process_name: powershell.exe and command_line: *Set-ItemProperty HK*"
+      ],
+      "Name": "Registry Run Keys / Startup Folder",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1547",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-01-002"
+      ],
+      "Host": [],
+      "Name": "Winlogon Helper DLL",
+      "Network": [],
+      "Sub-Technique": ".004",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1547",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [],
+      "Host": [],
+      "Name": "Port Monitors",
+      "Network": [],
+      "Sub-Technique": ".01",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1547",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-001",
+        "CAR-2015-07-001",
+        "CAR-2020-11-001"
+      ],
+      "Host": [],
+      "Name": "Boot or Logon Initialization Scripts",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1037",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-001",
+        "CAR-2020-11-001"
+      ],
+      "Host": [],
+      "Name": "Logon Script (Windows)",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1037",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [],
+      "Host": [
+        "winlog.event_id : 4625"
+      ],
+      "Name": "Password Guessing",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1110",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2014-04-003",
+        "CAR-2014-11-002",
+        "CAR-2014-11-004",
+        "CAR-2021-01-002"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "process.name : (cmd.exe OR powershell.exe OR python.exe OR *.py OR java.exe OR *.js OR cscript.exe OR wscript) AND process.command_line : *"
+      ],
+      "Name": "Command and Scripting Interpreter",
+      "Network": "protocols == [dns,ftp,smtp] && dns.query.type == PTR && host.dns != *.arpa",
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1059",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-04-003",
+        "CAR-2014-04-003",
+        "CAR-2014-11-004"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "PowerShell",
+      "Network": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1059",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-02-003",
+        "CAR-2014-11-002"
+      ],
+      "Host": [],
+      "Name": "Windows Command Shell",
+      "Network": [],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1059",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Visual Basic",
+      "Network": [],
+      "Sub-Technique": ".005",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1059",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-010"
+      ],
+      "Host": [
+        "event.code : 4720",
+        "process.name : net.exe or net1.exe AND process.command.line : *add*"
+      ],
+      "Name": "Create Account",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0003"
+      ],
+      "Technique": "T1136",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-010"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Local Account",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0003"
+      ],
+      "Technique": "T1136",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-03-005",
+        "CAR-2013-01-002",
+        "CAR-2013-04-002",
+        "CAR-2013-09-005",
+        "CAR-2014-02-001",
+        "CAR-2014-03-005",
+        "CAR-2014-05-002"
+      ],
+      "Host": [
+        "event.code : 4697 or 7045 or 7000 or 7009",
+        "service.name : srservice or ipvpn or hkmsvc or javamtsup",
+        "process.name : net.exe or net1.exe or sc.exe or services.exe or wmic.exe or powershell.exe AND process.command.line : *",
+        "registry.key : *Services* AND winlog.event_data.Details : * OR TargetObject : HKLM\\System\\CurrentControlSet\\Services\\*"
+      ],
+      "Name": "Create or Modify System Process",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1543",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-03-005",
+        "CAR-2013-04-002",
+        "CAR-2013-09-005",
+        "CAR-2014-02-001",
+        "CAR-2014-03-005",
+        "CAR-2014-05-002"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Windows Service",
+      "Network": [],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1543",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [],
+      "Host": [
+        "event.code : 11 or 2 event.code : 2 AND filePath contains C:\\Users\\",
+        "process.name : vssadmin or wbadmin or bcdedit"
+      ],
+      "Name": "Data Encrypted for Impact",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0040"
+      ],
+      "Technique": "T1486",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-01-003",
+        "CAR-2013-01-003"
+      ],
+      "Host": [
+        "parent.process_name : cmd.exe or powershell.exe AND process.command_line : *",
+        "process.name : net.exe or net1.exe",
+        "process.name : wmic.exe AND process.command_line : *net* or *share*"
+      ],
+      "Name": "Data from Network Shared Drive",
+      "Network": [
+        "Look through the smb_files.log and smb_mapping.log and cross reference against outbound traffic to uncover potential data exfil from shared drives"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0009"
+      ],
+      "Technique": "T1039",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-009",
+        "CAR-2021-05-009"
+      ],
+      "Host": [
+        "Process.name : certutil.exe AND Process.command.line : *decode* OR *urlcache*",
+        "Process.name : copy.exe AND Process.command.line : */b*",
+        "Event_id : 3 AND Process.name : wscript.exe",
+        "Process.command.line : *decode*",
+        "Process.name : (zip OR rar OR 7zip OR winzip or winrar OR ziparchiver OR peazip)",
+        "Event_ID:1 AND command.line:\"*Invoke-ReflectivePEInjection*"
+      ],
+      "Name": "Deobfuscate/Decode Files or Information",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1140",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-11-003",
+        "CAR-2014-11-003",
+        "CAR-2014-11-008",
+        "CAR-2020-09-002",
+        "CAR-2020-09-005",
+        "CAR-2020-11-011"
+      ],
+      "Host": [
+        "process.name : assoc AND process.command.line : *",
+        "process.name : reg.exe AND registry.key : HKCU\\Control Panel\\Desktop\\*",
+        "event.code : 19 or 20 or 21 or 5861",
+        "registry.key : HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\*",
+        "registry.value : *AppInit*",
+        "registry.path : HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\LoadAppInit_DLLs",
+        "process.name : reg.exe AND process.command.line : *add*",
+        "registry.path : HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\*",
+        "event.code : 11 and file.name : *profile*.ps1",
+        "registry.path : HKEY_LOCAL_MACHINE\\SOFTWARE\\Classes\\CLSID*"
+      ],
+      "Name": "Event Triggered Execution",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1546",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-01-002"
+      ],
+      "Host": [],
+      "Name": "Change Default File Association",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1546",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-011",
+        "CAR-2020-11-011"
+      ],
+      "Host": [],
+      "Name": "Screensaver",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1546",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-01-002"
+      ],
+      "Host": [
+        "Event_ID:1 AND command.line:\"*Register-WmiEvent*"
+      ],
+      "Name": "Windows Management Instrumentation Event Subscription",
+      "Network": [],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1546",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-11-003",
+        "CAR-2014-11-003",
+        "CAR-2014-11-008"
+      ],
+      "Host": [],
+      "Name": "Accessibility Features",
+      "Network": [],
+      "Sub-Technique": ".008",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1546",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-09-005"
+      ],
+      "Host": [],
+      "Name": "AppInit DLLs",
+      "Network": [],
+      "Sub-Technique": ".01",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1546",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-09-002",
+        "CAR-2020-09-002"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Component Object Model Hijacking",
+      "Network": [],
+      "Sub-Technique": ".015",
+      "Tactics": [
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1546",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-01-004",
+        "CAR-2021-01-004"
+      ],
+      "Host": [
+        "Event_ID:(1000 OR 1001)"
+      ],
+      "Name": "Exploitation for Privilege Escalation",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0004"
+      ],
+      "Technique": "T1068",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-01-003"
+      ],
+      "Host": [],
+      "Name": "Exploitation of Remote Services",
+      "Network": [
+        "Arkime: smb.share == EXISTS! || smb.share == [Admin$, C$, IPC$]",
+        "protocols == smb && ip.src != [10/8, 172.16/12, 192.168/16]",
+        "protocols == smb && ip.dst != [10/8, 172.16/12, 192.168/16]",
+        "smb.user == [Admin*, admin*]",
+        "smb.user != [Admin*, admin*] && smb.share == [Admin$, C$, IPC$]",
+        "protocols == dcerpc && dcerpc.cmd == EXISTS!",
+        "protocols == rdp && ip.src != [10/8, 172.16/12/ 192.168/16]",
+        "protocols == rdp && ip.src == [10/8, 172.16/12/ 192.168/16] && ip.dst == [10/8, 172.16/12/ 192.168/16]",
+        "protocols == rdp && ip.src == [10/8, 172.16/12/ 192.168/16] && ip.dst != [10/8, 172.16/12/ 192.168/16]",
+        "Kibana: smb.share: * OR smb.share: (Admin$ or C$ or IPC$)",
+        "protocol: smb AND NOT srcIp: (10.0.0.0/8 or 172.16.0.0/12 or 192.168.0.0/16)",
+        "protocol: smb AND NOT dstIp: (10.0.0.0/8 or 172.16.0.0/12 or 192.168.0.0/16)",
+        "smb.user: (Admin* or admin*)",
+        "protocol: dcerpc AND dcerpc.cmd: *",
+        "protocol: rdp AND NOT srcIp: (10.0.0.0/8 or 172.16.0.0/12 or 192.168.0.0/16)",
+        "protocol: rdp AND srcIp: (10.0.0.0/8 or 172.16.0.0/12 or 192.168.0.0/16) AND dstIp: (10.0.0.0/8 or 172.16.0.0/12 or 192.168.0.0/16)",
+        "protocol: rdp AND srcIp: (10.0.0.0/8 or 172.16.0.0/12 or 192.168.0.0/16) AND NOT dstIp: (10.0.0.0/8 or 172.16.0.0/12 or 192.168.0.0/16)"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0008"
+      ],
+      "Technique": "T1210",
+      "Threat Playbook": "Network Only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2019-07-001"
+      ],
+      "Host": [
+        "event_id:1 AND (command_line:\"*forfiles* OR command_line:\"dir*\" OR command_line:\"find*\")",
+        "event_id: (1 or 5 or 4688 or 4689) AND process.name : (dir or tree or forfiles or attrib or set or systeminfo)",
+        "process.command.line or (process.parent.command_line) :*temp* or *tmp* or *appdata*",
+        "Event_id : (1 or 5 or 4688 or 4689) AND process.parent.name : (cmd.exe or powershell.exe)"
+      ],
+      "Name": "File and Directory Discovery",
+      "Network": "protocols == dcerpc",
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1083",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2019-07-001",
+        "CAR-2019-07-001"
+      ],
+      "Host": [],
+      "Name": "Windows File and Directory Permissions Modification",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1222",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2019-07-001",
+        "CAR-2019-07-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Linux and Mac File and Directory Permissions Modification",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1222",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-09-003",
+        "CAR-2013-09-003"
+      ],
+      "Host": [
+        "event.action:\"Process Create (rule: ProcessCreate)\" and process.parent.name:(eqnedt32.exe or excel.exe or fltldr.exe or msaccess.exe or mspub.exe or powerpnt.exe or winword.exe) and process.name:(Microsoft.Workflow.Compiler.exe or arp.exe or atbroker.exe or bginfo.exe or bitsadmin.exe or cdb.exe or certutil.exe or cmd.exe or cmstp.exe or cscript.exe or csi.exe or dnx.exe or dsget.exe or dsquery.exe or forfiles.exe or fsi.exe or ftp.exe or gpresult.exe or hostname.exe or ieexec.exe or iexpress.exe or installutil.exe or ipconfig.exe or mshta.exe or msxsl.exe or nbtstat.exe or net.exe or net1.exe or netsh.exe or netstat.exe or nltest.exe or odbcconf.exe or ping.exe or powershell.exe or pwsh.exe or qprocess.exe or quser.exe or qwinsta.exe or rcsi.exe or reg.exe or regasm.exe or regsvcs.exe or regsvr32.exe or sc.exe or schtasks.exe or systeminfo.exe or tasklist.exe or tracert.exe or whoami.exe or wmic.exe or wscript.exe or xwizard.exe)",
+        "event.action:\"Process Create (rule: ProcessCreate)\" and process.parent.name:outlook.exe and process.name:(Microsoft.Workflow.Compiler.exe or arp.exe or atbroker.exe or bginfo.exe or bitsadmin.exe or cdb.exe or certutil.exe or cmd.exe or cmstp.exe or cscript.exe or csi.exe or dnx.exe or dsget.exe or dsquery.exe or forfiles.exe or fsi.exe or ftp.exe or gpresult.exe or hostname.exe or ieexec.exe or iexpress.exe or installutil.exe or ipconfig.exe or mshta.exe or msxsl.exe or nbtstat.exe or net.exe or net1.exe or netsh.exe or netstat.exe or nltest.exe or odbcconf.exe or ping.exe or powershell.exe or pwsh.exe or qprocess.exe or quser.exe or qwinsta.exe or rcsi.exe or reg.exe or regasm.exe or regsvcs.exe or regsvr32.exe or sc.exe or schtasks.exe or systeminfo.exe or tasklist.exe or tracert.exe or whoami.exe or wmic.exe or wscript.exe or xwizard.exe)"
+      ],
+      "Name": "Forced Authentication",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1187",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-008"
+      ],
+      "Host": [],
+      "Name": "Forge Web Credentials",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1606",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-008"
+      ],
+      "Host": [],
+      "Name": "SAML Tokens",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1606",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [],
+      "Host": [],
+      "Name": "Gather Victim Host Information",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0043"
+      ],
+      "Technique": "T1592",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-08-001",
+        "CAR-2020-08-001",
+        "CAR-2020-08-002"
+      ],
+      "Host": [
+        "event_id: 1 and process_command_line: \"attrib + h\"",
+        "event_id: 1 and process_command_line: \"Hidden"
+      ],
+      "Name": "Hide Artifacts",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1564",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-08-001",
+        "CAR-2020-08-001",
+        "CAR-2020-08-002"
+      ],
+      "Host": [],
+      "Name": "NTFS File Attributes",
+      "Network": [],
+      "Sub-Technique": ".004",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1564",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-07-001",
+        "CAR-2013-03-001",
+        "CAR-2013-04-002",
+        "CAR-2014-02-001",
+        "CAR-2014-07-001",
+        "CAR-2020-05-003",
+        "CAR-2021-11-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "event.type: creation AND file.path:(\"AppData\" OR \"ProgramData\") AND file.name:(\"*.dll\")",
+        "process.command_line: (\"*AppData*\" OR \"*ProgramData*\") AND file.code_signature.valid : true"
+      ],
+      "Name": "Hijack Execution Flow",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1574",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-11-001",
+        "CAR-2021-11-001"
+      ],
+      "Host": [],
+      "Name": "DLL Search Order Hijacking",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0005",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1574",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-01-002"
+      ],
+      "Host": [],
+      "Name": "Path Interception by PATH Environment Variable",
+      "Network": [],
+      "Sub-Technique": ".007",
+      "Tactics": [
+        "TA0005",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1574",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-01-002"
+      ],
+      "Host": [],
+      "Name": "Path Interception by Search Order Hijacking",
+      "Network": [],
+      "Sub-Technique": ".008",
+      "Tactics": [
+        "TA0005",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1574",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-07-001",
+        "CAR-2014-07-001"
+      ],
+      "Host": [],
+      "Name": "Path Interception by Unquoted Path",
+      "Network": [],
+      "Sub-Technique": ".009",
+      "Tactics": [
+        "TA0005",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1574",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-02-001"
+      ],
+      "Host": [],
+      "Name": "Services File Permissions Weakness",
+      "Network": [],
+      "Sub-Technique": ".01",
+      "Tactics": [
+        "TA0005",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1574",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-03-001",
+        "CAR-2013-04-002",
+        "CAR-2020-05-003"
+      ],
+      "Host": [],
+      "Name": "Services Registry Permissions Weakness",
+      "Network": [],
+      "Sub-Technique": ".011",
+      "Tactics": [
+        "TA0005",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1574",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-04-003",
+        "CAR-2020-09-003",
+        "CAR-2021-01-007",
+        "CAR-2022-03-001"
+      ],
+      "Host": [
+        "event.code : 12 or 13 or 14 AND TargetObject : HKLM\\SOFTWARE\\Microsoft\\AMSI\\*",
+        "event.code : 12 or 13 or 14 AND TargetObject : (HKLM\\SOFTWARE\\Microsoft\\Windows Defender\\Real-Time Protection\\DisableRealtimeMonitoring or HKLM\\System\\CurrentControlSet\\Services\\WdNisDrv\\Start or HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\DisableAntiSpyware)",
+        "process.name : MpCmdRun.exe AND process.command_line : * OR process.name : MpCmdRun.exe AND process.parent.name : *",
+        "process.name : net.exe or net1.exe and process.command_line : *stop* OR process.name : sc.exe AND process.command_line : *config*",
+        "event.code : 12 or 13 or 14 AND TargetObject : HKCU:\\Software\\Microsoft\\Office\\16.0\\Excel\\Security\\ProtectedView",
+        "event.code : 13 AND TargetObject : HKLM\\System\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\PublicProfile\\EnableFirewall",
+        "event.code : 4950 (A Windows Firewall setting was changed.)",
+        "process.name : netsh.exe and process.command_line : *"
+      ],
+      "Name": "Impair Defenses",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1562",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-04-003",
+        "CAR-2021-01-007"
+      ],
+      "Host": [
+        "event_id:[4663, 4656, 4658] AND object.name:\"amsi.dll\"",
+        "event_id:5 AND image:\"<security tool location>\"",
+        "event_id:4689 AND process.name:\"<security tool location>\"",
+        "event_id:4657 AND object.name:\"<security tool registry name>"
+      ],
+      "Name": "Disable or Modify Tools",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1562",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2022-03-001",
+        "CAR-2022-03-001"
+      ],
+      "Host": [],
+      "Name": "Disable Windows Event Logging",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1562",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2020-09-003"
+      ],
+      "Host": [],
+      "Name": "Indicator Blocking",
+      "Network": [],
+      "Sub-Technique": ".006",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1562",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-01-003",
+        "CAR-2016-04-002",
+        "CAR-2020-11-005",
+        "CAR-2020-11-007",
+        "CAR-2021-01-003"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "process.name : net.exe or net1.exe AND process.command_line : */DELETE*",
+        "event.code : 1102 or 517",
+        "process.name : wevtutil.exe AND process.command_line : *cl*"
+      ],
+      "Name": "Indicator Removal on Host",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1070",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-01-003",
+        "CAR-2016-04-002",
+        "CAR-2021-01-003"
+      ],
+      "Host": [],
+      "Name": "Clear Windows Event Logs",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1070",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-005",
+        "CAR-2020-11-005"
+      ],
+      "Host": [],
+      "Name": "Clear Command History",
+      "Network": [],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1070",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-007",
+        "CAR-2020-11-007"
+      ],
+      "Host": [],
+      "Name": "Network Share Connection Removal",
+      "Network": [],
+      "Sub-Technique": ".005",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1070",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-006",
+        "CAR-2013-07-001",
+        "CAR-2021-05-005",
+        "CAR-2021-05-006",
+        "CAR-2021-05-007"
+      ],
+      "Host": [
+        "Event_id : 3 AND image : (*bitsadmin.exe OR *rsync.exe OR *scp.exe OR *sftp.exe OR *certutil.exe OR *nc.exe OR *MpCmdRun.exe)",
+        "Event_id : 11 AND image : (*bitsadmin.exe OR *rsync.exe OR *scp.exe OR *sftp.exe OR *certutil.exe OR *nc.exe OR *MpCmdRun.exe)"
+      ],
+      "Name": "Ingress Tool Transfer",
+      "Network": [
+        "http.uri == *drive.google*; http.uri: *drive.google* http.uri == EXISTS!; http.uri: * http.bodymagic == application/zip <modify as needed> && http.statuscode == <200, 3XX> http.method == GET && http.statuscode == 200 && (http.bodymagic == EXISTS! || http.content-type == EXISTS!) protocol:(ftp or sftp or tftp or ssh)"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0011"
+      ],
+      "Technique": "T1105",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-01-009",
+        "CAR-2021-01-009",
+        "CAR-2021-05-003"
+      ],
+      "Host": [
+        "process.name : del.exe",
+        "process.name : bcdedit.exe",
+        "process.name : vssadmin.exe or wmic.exe or wbadmin.exe AND process.command_line : *delete*",
+        "Event.code : 12 or 13 or 14 AND TargetObject : HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\PreviousVersions\\DisableLocalPage",
+        "Event.code 4104 AND message contains Win32_Shadowcopy",
+        "Event.code : 524"
+      ],
+      "Name": "Inhibit System Recovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0040"
+      ],
+      "Technique": "T1490",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-01-006",
+        "CAR-2021-01-006"
+      ],
+      "Host": [
+        "event_type: ImageLoad AND file_path: \"*\\\\taskschd.dll\" AND proc_file_path:(\"\\\\cscript.exe\" OR \"\\\\wscript.exe\" OR \"\\\\powershell.exe\" OR \"\\\\winword.exe\" OR \"\\\\excel.exe\" \"\\\\powerpnt.exe\" OR \"\\\\mspub.exe\" OR \"\\\\visio.exe\" OR \"\\\\msaccess.exe\" OR \"\\\\regsvr32.exe\")",
+        "event_id: 17, 18"
+      ],
+      "Name": "Inter-Process Communication",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1559",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-01-006",
+        "CAR-2021-01-006"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Dynamic Data Exchange",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1559",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-03-001",
+        "CAR-2013-05-003",
+        "CAR-2014-03-001",
+        "CAR-2013-05-005",
+        "CAR-2014-03-001"
+      ],
+      "Host": [
+        "Kibana: Event_ID:3 AND <ip src>:<internal> AND <ip.dst>:<internal> AND <RPC> (event_id:5140 or event_id:5145) AND ($ADMIN, C$, or IPC$)",
+        "Powershell: [System.IO.Directory]::GetFiles(\"\\\\.\\\\pipe\\\\\") | findstr atctl gci \\\\.\\pipe\\ | findstr atctl Volatility: vol.py mftparser | grep lPH*.dll"
+      ],
+      "Name": "Lateral Tool Transfer",
+      "Network": [
+        "Arkime: ip.src == [10/8, 192.168/16, 172.16/12] && ip.dst == [10/8, 192.168/16, 172.16/12] && protocols == dcerpc && port != [135,139,445]",
+        "protocols == rdp && ip.src != [10/8, 192.168/16, 172.16/12]",
+        "protocols == smb && port.dst != 445 protocols == smb && smb.cmd == *atctl",
+        "Kibana: scrIp: (10/8 or 192.168/16 or 172.16/12) AND dstIp: (10/8 or 192.168/16 or 172.16/12) AND NOT dstPort: (135 or 139 or 445)",
+        "protocol: rdp AND NOT srcIp: (10/8 or 192.168/16 or 172.16/12)",
+        "protocol: smb AND NOT dstPort: 445",
+        "protocol: smb && smb.share: * or smb.filename: EXISTS!"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0008"
+      ],
+      "Technique": "T1570",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-05-002",
+        "CAR-2013-05-002",
+        "CAR-2013-05-009",
+        "CAR-2021-04-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "winlog.event_data.OriginalFileName != process.name",
+        "process.command.line : *accepteula*",
+        "process.executable : * (process.name : \"svchost.exe\" OR process.name : \"winlogon.exe\" OR process.name : \"services.exe\") AND NOT (process.executable : \"*Windows\\System32\\*\" OR process.executable : \"*Windows\\SysWOW64\\*\")"
+      ],
+      "Name": "Masquerading",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1036",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [],
+      "Host": [],
+      "Name": "Right-to-Left Override",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1036",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-05-009",
+        "CAR-2013-05-009"
+      ],
+      "Host": [],
+      "Name": "Rename System Utilities",
+      "Network": [],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1036",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [],
+      "Host": [],
+      "Name": "Masquerade Task or Service",
+      "Network": [],
+      "Sub-Technique": ".004",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1036",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-04-001",
+        "CAR-2021-04-001"
+      ],
+      "Host": [],
+      "Name": "Match Legitimate Name or Location",
+      "Network": [],
+      "Sub-Technique": ".005",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1036",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-03-001",
+        "CAR-2013-04-002",
+        "CAR-2014-11-005",
+        "CAR-2020-05-003",
+        "CAR-2021-11-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Modify Registry",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1112",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2021-01-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "process.name : (nmap.exe or nc.exe ping.exe or tcping.exe or tracert.exe or pathping.exe or osql.exe) AND process.command_line : *"
+      ],
+      "Name": "Network Service Scanning",
+      "Network": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1046",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-002",
+        "CAR-2020-11-002"
+      ],
+      "Host": [
+        "destination.port: (137 or 5355)",
+        "winlog.event_id: 3 AND destination.port: (135 or 445) AND NOT destination.ip: <server IP>",
+        "event_id : (1 or 4688) and process.name : (tshark.exe or wireshark.exe or windump.exe or winpdump.exe)",
+        "process.name : netsh.exe AND process.command.line : *trace*"
+      ],
+      "Name": "Network Sniffing",
+      "Network": [
+        "Arkime: protocols == krb5 && (krb5.realm == EXISTS! || krb5.cname == EXISTS! || krb5.sname == EXISTS!)",
+        "port.dst == [137, 5355]",
+        "port.dst==[137,445] && ip !=<internal server IP>",
+        "(protocols == smb || port.dst == 137) && ip != <internal server IP>",
+        "protocols == llmnr || port == 5355",
+        "ip == <IP of interest> && protocols == smb && smb.share == \"*/IPC$\"",
+        "Kibana: protocol: \"krb5\" AND (krb5.cname: * OR krb5.sname: *)",
+        "dstPort: (137 OR 445) AND NOT (dstIp: <internal server IP> OR srcIp: <internal server IP>)",
+        "protocol: llmnr OR scrPort: 5355 OR dstPort: 5355",
+        "protocol: smb AND srcIp: <IP of interest> OR dstIp: <IP of interest>"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0006",
+        "TA0007"
+      ],
+      "Technique": "T1040",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-05-001",
+        "CAR-2013-04-002",
+        "CAR-2013-07-001",
+        "CAR-2019-04-004",
+        "CAR-2019-07-002",
+        "CAR-2019-08-001",
+        "CAR-2019-08-002",
+        "CAR-2020-05-001",
+        "CAR-2021-05-011"
+      ],
+      "Host": [],
+      "Name": "OS Credential Dumping",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1003",
+      "Threat Playbook": "Not Listed",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-07-001",
+        "CAR-2013-07-001",
+        "CAR-2019-04-004",
+        "CAR-2019-07-002",
+        "CAR-2019-08-001",
+        "CAR-2021-05-011"
+      ],
+      "Host": [],
+      "Name": "LSASS Memory",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1003",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002"
+      ],
+      "Host": [],
+      "Name": "Security Account Manager",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1003",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-05-001",
+        "CAR-2019-08-002",
+        "CAR-2020-05-001"
+      ],
+      "Host": [],
+      "Name": "NTDS",
+      "Network": [],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1003",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001",
+        "CAR-2020-11-006"
+      ],
+      "Host": [
+        "process.name : net.exe or net1.exe AND process.command_line : *localgroup*",
+        "process.name : net.exe or net1.exe or dsquery.exe AND process.command_line : *domain*",
+        "event.code : 4104",
+        "event.code : 4799 AND winlog.event_data.CallerProcessName : *powershell.exe* or *net.exe* or *net1.exe"
+      ],
+      "Name": "Permission Groups Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1069",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001",
+        "CAR-2020-11-006"
+      ],
+      "Host": [
+        "Event_ID:1 AND command.line:\"*net localgroup*"
+      ],
+      "Name": "Local Groups",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1069",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001",
+        "CAR-2020-11-006"
+      ],
+      "Host": [
+        "event_id:1 AND command_line:\"net group*"
+      ],
+      "Name": "Domain Groups",
+      "Network": [
+        "protocols == dcerpc"
+      ],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1069",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "Event_ID:1 AND commandline:\"*tasklist*\" Event_ID:1 AND commandline:\"*get-process*\"",
+        "Event_ID:1 AND commandline:\"*gps*\"",
+        "Event_ID:1 AND commandline:\"*ps*\"",
+        "Event_ID:1 AND commandline:\"*wmic process*",
+        "Event_ID:1 AND commandline:\"*netstat*"
+      ],
+      "Name": "Process Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1057",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-10-002",
+        "CAR-2013-10-002",
+        "CAR-2020-11-003",
+        "CAR-2020-11-004"
+      ],
+      "Host": [],
+      "Name": "Process Injection",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005",
+        "TA0004"
+      ],
+      "Technique": "T1055",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-10-002",
+        "CAR-2013-10-002",
+        "CAR-2020-11-003"
+      ],
+      "Host": [
+        "event_id:7 event_id:3 OR event_id:560"
+      ],
+      "Name": "Dynamic-link Library Injection",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0005",
+        "TA0004"
+      ],
+      "Technique": "T1055",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-004",
+        "CAR-2020-11-004"
+      ],
+      "Host": [],
+      "Name": "Process Hollowing",
+      "Network": [],
+      "Sub-Technique": ".012",
+      "Tactics": [
+        "TA0005",
+        "TA0004"
+      ],
+      "Technique": "T1055",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-03-001",
+        "CAR-2013-04-002",
+        "CAR-2020-05-003"
+      ],
+      "Host": [
+        "event_id:1 AND command_line:\"reg query*\"",
+        "event_id:1 AND command_line:\"get-childitem*<registry hive>:*\"",
+        "event_id:1 AND command_line:\"gci*<registry hive>:*\"",
+        "event_id:1 AND command_line:\"wmic /namespace:\\\\root\\default class stdregprov*\"",
+        "event_id:4656 AND object_type:Key"
+      ],
+      "Name": "Query Registry",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1012",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-10-001",
+        "CAR-2013-01-003",
+        "CAR-2013-04-002",
+        "CAR-2013-05-003",
+        "CAR-2014-03-001",
+        "CAR-2013-05-005",
+        "CAR-2013-07-001",
+        "CAR-2013-07-002",
+        "CAR-2013-10-001",
+        "CAR-2014-05-001",
+        "CAR-2014-11-004",
+        "CAR-2014-11-006",
+        "CAR-2015-07-001",
+        "CAR-2016-04-005"
+      ],
+      "Host": [
+        "process.command_line : *ADMIN$* or *C$* or *PRINT$*",
+        "process.name : net.exe or net1.exe AND process.command_line : *use*"
+      ],
+      "Name": "Remote Services",
+      "Network": [
+        "protocols == rdp && ip.src != [10/8,172.16/12,192.168/16] && ip.dst == [10/8,172.16/12,192.168/16] && user == EXISTS!",
+        "protocols == ssh && ip.src != [10/8,172.16/12,192.168/16] && ip.dst == [10/8,172.16/12,192.168/16] && user == EXISTS!"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0008"
+      ],
+      "Technique": "T1021",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-10-001",
+        "CAR-2013-07-002",
+        "CAR-2013-10-001",
+        "CAR-2016-04-005"
+      ],
+      "Host": [],
+      "Name": "Remote Desktop Protocol",
+      "Network": [
+        "ip.src != [10/8, 172.16/12, 192.168/16] && ip.dst ==[10/8, 172.16/12, 192.168/16] && protocols == rdp",
+        "ip.src ==[10/8, 172.16/12, 192.168/16] && ip.dst == [10/8, 172.16/12, 192.168/16] && protocols == rdp"
+      ],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0008"
+      ],
+      "Technique": "T1021",
+      "Threat Playbook": "Network Only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-05-001",
+        "CAR-2013-01-003",
+        "CAR-2013-04-002",
+        "CAR-2013-05-003",
+        "CAR-2014-03-001",
+        "CAR-2013-05-005",
+        "CAR-2014-05-001"
+      ],
+      "Host": [
+        "Event_ID:1 AND <ip src>:<internal> AND <ip dst>:<internal> AND <net.exe>",
+        "Event_ID:4648 AND <ip src>:<internal>",
+        "Event_ID:11 OR Event_ID: 3 AND *process name*",
+        "event.code: (\"4776\" OR \"4672\" OR \"4624\")",
+        "event.code: 5140",
+        "Powershell: Get-EventLog -LogName Security -InstanceId xxxx -Before (Get-Date) -After (Get-Date).AddDays(-1)"
+      ],
+      "Name": "SMB/Windows Admin Shares",
+      "Network": [
+        "Arkime: smb.share == EXISTS! smb.share == *$* smb.share == [*ADMIN$, C$, *IPC$] && ip.src == [10/8, 172.16/12, 192.168/16] && ip.dst == [10/8, 172.16/12, 192.168/16] smb.user == EXISTS! smb.user == <admin account> dcerpc.cmd == EXISTS! ip.src == <host> && dcerpc.cmd == <rpc command>",
+        "Kibana: protocol: (smb or dcerpc) && smb.user: (admin* or Admin*)",
+        "protocol: (smb or dcerpc) && smb.user: <admin account>",
+        "protocol: (smb or dcerpc) && smb.user: (admin* or Admin*)"
+      ],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0008"
+      ],
+      "Technique": "T1021",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-05-001",
+        "CAR-2014-05-001"
+      ],
+      "Host": [],
+      "Name": "Distributed Component Object Model",
+      "Network": [],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0008"
+      ],
+      "Technique": "T1021",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-05-001",
+        "CAR-2014-05-001",
+        "CAR-2014-11-004",
+        "CAR-2014-11-006"
+      ],
+      "Host": [],
+      "Name": "Windows Remote Management",
+      "Network": [],
+      "Sub-Technique": ".006",
+      "Tactics": [
+        "TA0008"
+      ],
+      "Technique": "T1021",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002"
+      ],
+      "Host": [
+        "event.category:process and event.type:(start or process_started) and (process.name:net.exe or process.name:net1.exe and not process.parent.name:net.exe) and process.args:(view or (view /DOMAIN) or (group \"Domain Computers\" /domain) or (net group \"Domain Controllers\" /domain) or (net group \"Exchange Servers\" /domain) ) [renamed-adfind].exe -h [internal domain] -sc u:[user] > .\\\\[machine]\\[file].[log|txt] [renamed-adfind].exe -sc u:* > .\\[folder]\\[file].[log|txt] [renamed-adfind].exe -h [machine] -f (name=\u00ef\u00bf\u00bdDomain Admins\u00ef\u00bf\u00bd) member -list | [renamed-adfind].exe -h [machine] -f objectcategory=* > .\\[folder]\\[file].[log|txt]",
+        "event_id:1 AND command_line:\"net view*\"",
+        "event_id:1 AND command_line:\"net group*\"",
+        "event_id:1 AND command_line:\"*etc\\hosts"
+      ],
+      "Name": "Remote System Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1018",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [],
+      "Host": [
+        "event_id:4663 AND \"removable storage\"",
+        "event_id:4688 AND NOT new.process.name:<normal drive>:*"
+      ],
+      "Name": "Replication Through Removable Media",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0008",
+        "TA0001"
+      ],
+      "Technique": "T1091",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-01-002",
+        "CAR-2013-04-002",
+        "CAR-2013-05-004",
+        "CAR-2013-08-001",
+        "CAR-2015-04-001",
+        "CAR-2015-04-002",
+        "CAR-2020-09-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "Event.action:\"Process Create (rule: ProcessCreate)\" and process.name:schtasks.exe and process.args:(-change or -create or -run or -s or /S or /change or /create or /run or /xml or /query or /tr or /sc or /mo)",
+        "Event.action:\"Process Create (rule: ProcessCreate)\" and process.name:at.exe"
+      ],
+      "Name": "Scheduled Task/Job",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0002",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1053",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2013-05-004",
+        "CAR-2015-04-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "At (Windows)",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0002",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1053",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2013-08-001",
+        "CAR-2015-04-002",
+        "CAR-2020-09-001"
+      ],
+      "Host": [],
+      "Name": "Scheduled Task",
+      "Network": [],
+      "Sub-Technique": ".005",
+      "Tactics": [
+        "TA0002",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1053",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002"
+      ],
+      "Host": [],
+      "Name": "Scheduled Transfer",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0010"
+      ],
+      "Technique": "T1029",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-02-001",
+        "CAR-2021-02-001"
+      ],
+      "Host": [
+        "event.code : 4104 AND message contains Install-TransportAgent OR Enable-TransportAgent OR Get-TransportAgent",
+        "process.command_line contains FilePath like C:\\inetpub\\wwwroot",
+        "event.category:process and event.type:(start or process_started) and process.name:cmd.exe and process.parent.name:sqlservr.exe"
+      ],
+      "Name": "Server Software Component",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0003"
+      ],
+      "Technique": "T1505",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-02-001",
+        "CAR-2021-02-001"
+      ],
+      "Host": [
+        "process.parent.name : w3wp.exe AND process.parent.command_line: *AppPool.config* AND event.code : 1 AND NOT process.name: csc.exe",
+        "parent.process.name : (w3wp.exe or httpd) AND event.code : 1 AND NOT process.name: (filter out known good processes here)"
+      ],
+      "Name": "Web Shell",
+      "Network": [
+        "http.uri == [*.jsp,*.asp, *.aspx, *.php, *.cfm] && http.request.method == POST",
+        "http.request.method == [GET, POST] && http.uri == \\*.php (&& http.entropy == [7,8])"
+      ],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0003"
+      ],
+      "Technique": "T1505",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2019-04-002",
+        "CAR-2014-03-006",
+        "CAR-2019-04-002",
+        "CAR-2019-04-003",
+        "CAR-2020-11-009",
+        "CAR-2020-11-010"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "process.name:(expand.exe or extrac.exe or ieexec.exe or makecab.exe) and event.action:\"Network connection detected (rule: NetworkConnect)\" and not destination.ip:(10.0.0.0/8 or 172.16.0.0/12 or 192.168.0.0/16)"
+      ],
+      "Name": "Signed Binary Proxy Execution",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1218",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-009",
+        "CAR-2020-11-009"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Compiled HTML File",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1218",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-010",
+        "CAR-2020-11-010"
+      ],
+      "Host": [],
+      "Name": "CMSTP",
+      "Network": [],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1218",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2019-04-002",
+        "CAR-2019-04-003"
+      ],
+      "Host": [],
+      "Name": "Regsvr32",
+      "Network": [],
+      "Sub-Technique": ".01",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1218",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-03-006",
+        "CAR-2014-03-006"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques",
+        "process.parent.name : ('winword.exe' OR 'excel.exe' OR 'msaccess.exe' OR 'lsass.exe' OR 'taskeng.exe' OR 'winlogon.exe' OR 'schtask.exe' OR 'regsvr32.exe' OR 'wmiprvse.exe' OR 'wsmprovhost.exe') AND process.name : \"rundll32.exe\"",
+        "process.name : \"rundll32.exe\" AND process.command_line : (\"*MiniDump*\" OR \"*StartW*\")"
+      ],
+      "Name": "Rundll32",
+      "Network": [],
+      "Sub-Technique": ".011",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1218",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002"
+      ],
+      "Host": [
+        "process.name : \"reg.exe\" and process.command_line : *Software*",
+        "process.name : netsh.exe or tasklist.exe AND process.command_line : *",
+        "process.name : fltmc.exe (Sourrounded by)",
+        "process.command_line : findstr.exe 385201",
+        "process.name : wmic.exe AND process.command_line *AntiVirusProduct*"
+      ],
+      "Name": "Software Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1518",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002"
+      ],
+      "Host": [
+        "Event_ID:4798"
+      ],
+      "Name": "Security Software Discovery",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1518",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-001",
+        "CAR-2021-05-001"
+      ],
+      "Host": [],
+      "Name": "Subvert Trust Controls",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1553",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-001",
+        "CAR-2021-05-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Install Root Certificate",
+      "Network": [],
+      "Sub-Technique": ".004",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1553",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001"
+      ],
+      "Host": [
+        "Event_id : (1 or 5 or 4688 or 4689) AND process.name : (reg.exe or hostname.exe or systeminfo.exe or wmic.exe or auditpol.exe or net.exe or net1.exe or msinfo32.exe or findstr.exe) process.parent.name : cmd.exe or powershell.exe"
+      ],
+      "Name": "System Information Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1082",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001"
+      ],
+      "Host": [
+        "Event_id : (1 or 5 or 4688 or 4689) AND process.name : (nbtstat.exe or ipconfig.exe or netstat.exe or route.exe or arp.exe or nbtscan.exe or net.exe or net1.exe or netsh.exe or pathping.exe or tracert.exe)",
+        "process.name : wmic.exe AND process.command.line : *NET* OR *NIC* OR *PORT*"
+      ],
+      "Name": "System Network Configuration Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1016",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002"
+      ],
+      "Host": [
+        "Event_id : (1 or 5 or 4688 or 4689)",
+        "Process.name : (netstat.exe or net.exe or net1.exe or nbtstat.exe or ping.exe or tracert.exe or pathping.exe or netsh.exe)",
+        "Event_id : 4104 AND process.command.line : *get-NetTCPConnection*",
+        "Parent.process.name : cmd.exe or powershell.exe"
+      ],
+      "Name": "System Network Connections Discovery",
+      "Network": [
+        "protocols == [rdp,smb,dcerpc] && ip.dst != <internal>"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1049",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001"
+      ],
+      "Host": [
+        "process.name : whoami.exe or qwinsta.exe or quser.exe or systeminfo.exe",
+        "process.name : wmic.exe AND process.command_line : *useraccount*",
+        "event.code : 4798 AND winlog.event_data.CallerProcessName : *wmi* or *net* or *powershell*",
+        "process.name : net.exe or net1.exe AND process.command_line : *accounts* or *computer* or *config* or *localgroup*"
+      ],
+      "Name": "System Owner/User Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1033",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-04-002",
+        "CAR-2013-04-002",
+        "CAR-2016-03-001"
+      ],
+      "Host": [
+        "Event_ID:1 AND commandline:(\"*tasklist /svc*\" OR \"*net start *\" OR \"*sc query*\" OR \"*get-service *\" OR \"*gsv *\" OR \"*wmic*service*\")"
+      ],
+      "Name": "System Service Discovery",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0007"
+      ],
+      "Technique": "T1007",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-03-005",
+        "CAR-2013-04-002",
+        "CAR-2014-02-001",
+        "CAR-2014-03-005",
+        "CAR-2021-05-012"
+      ],
+      "Host": [
+        "event.code : (4697 OR 7045 OR 7000 OR 7009)",
+        "process.name : (net.exe OR net.exe OR psexec.exe OR sc.exe OR services.exe) AND process.command_line: *",
+        "winlog.event_data.TargetObject: \"HKLM\\System\\CurrentControlSet\\Services\\*"
+      ],
+      "Name": "System Services",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1569",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-012",
+        "CAR-2021-05-012"
+      ],
+      "Host": [],
+      "Name": "Launchctl",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1569",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-03-005",
+        "CAR-2013-04-002",
+        "CAR-2014-02-001",
+        "CAR-2014-03-005",
+        "CAR-2021-05-012"
+      ],
+      "Host": [],
+      "Name": "Service Execution",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1569",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-008",
+        "CAR-2020-11-008"
+      ],
+      "Host": [],
+      "Name": "Trusted Developer Utilities Proxy Execution",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1127",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-11-008",
+        "CAR-2020-11-008"
+      ],
+      "Host": [],
+      "Name": "MSBuild",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0005"
+      ],
+      "Technique": "T1127",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-09-004",
+        "CAR-2015-07-001",
+        "CAR-2020-09-004"
+      ],
+      "Host": [
+        "process.name : cmdkey",
+        "process.command_line : *password* or *pwd* or *login* or *secure* or *credentials*",
+        "process.name : reg.exe AND process.command_line : *",
+        "process.command_line : *.key or *.pgp or *.gpg or *.ppk or *.p12 or *.pem or *.pfx or *.cer or *.p7b or *.asc"
+      ],
+      "Name": "Unsecured Credentials",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1552",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-09-004",
+        "CAR-2020-09-004"
+      ],
+      "Host": [],
+      "Name": "Credentials In Files",
+      "Network": [],
+      "Sub-Technique": ".001",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1552",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2020-09-004",
+        "CAR-2020-09-004"
+      ],
+      "Host": [],
+      "Name": "Credentials in Registry",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0006"
+      ],
+      "Technique": "T1552",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2016-04-004",
+        "CAR-2016-04-004"
+      ],
+      "Host": [
+        "sequence with maxspan=10m[event_id: 4624 and logon_type: 3] and unique destination_ip"
+      ],
+      "Name": "Use Alternate Authentication Material",
+      "Network": [],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005",
+        "TA0008"
+      ],
+      "Technique": "T1550",
+      "Threat Playbook": "Host only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2016-04-004",
+        "CAR-2016-04-004"
+      ],
+      "Host": [
+        "Event ID: 4624 Logon Type = 9 Authentication Package = Negotiate Logon Process = seclogo",
+        "Event ID: 4624 Logon Type = 3 Using NTLM Auth, where it is not a domain login or the ANONYMOUS LOGIN account",
+        "Notes: Needs to be converted into Kibana or EQL"
+      ],
+      "Name": "Pass the Hash",
+      "Network": [
+        "Arkime: krb5.cname == [user] && krb5.sname == [service]",
+        "ldap.authtype == EXISTS! && ldap.bindname == EXISTS!",
+        "krb5.realm == EXISTS! && krb5.cname == <user>",
+        "protocols == [smb, dcerpc] && dcerpc.cmd == LsarCreateTrustedDomain",
+        "Kibana: krb5.cname: [user] AND krb5.sname: [service]",
+        "ldap.authtype: * AND ldap.bindname: *",
+        "krb5.realm:* AND krb5.cname:<user>",
+        "protocol: (smb or dcerpc) AND dcerpc.cmd: LsarCreateTrustedDomain"
+      ],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0005",
+        "TA0008"
+      ],
+      "Technique": "T1550",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-002",
+        "CAR-2021-05-002"
+      ],
+      "Host": [
+        "event.code:4688 AND winlog.event_data.CommandLine: (\"*cmd.exe*\" OR \"*powershell.exe*\")"
+      ],
+      "Name": "User Execution",
+      "Network": [
+        "http.uri == [*.ps1,*.dat,*.exe,*.bat,*.cmd] && http.method == [GET,POST] && http.host == EXISTS!",
+        "email.fn == [*.dat,*.dat,*.exe,*.bat,*.cmd] && email.header == EXISTS!"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1204",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2021-05-002",
+        "CAR-2021-05-002"
+      ],
+      "Host": [],
+      "Name": "Malicious File",
+      "Network": [],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1204",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-10-001",
+        "CAR-2013-02-008",
+        "CAR-2013-05-003",
+        "CAR-2014-03-001",
+        "CAR-2013-05-005",
+        "CAR-2013-10-001",
+        "CAR-2015-07-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Valid Accounts",
+      "Network": [
+        "Arkime: protocols == krb5 && (krb5.realm == EXISTS! || krb5.cname == EXISTS! || krb5.sname == EXISTS!)",
+        "protocols == dcerpc && dcerpc.cmd == \"*Log*\"",
+        "Kibana: protocol: \"krb5\" AND (krb5.cname: * OR krb5.sname: *)",
+        "protocol:\"dcerpc\" and dcerpc.cmd: *Log*"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0005",
+        "TA0001",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1078",
+      "Threat Playbook": "Network Only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-10-001",
+        "CAR-2013-02-008",
+        "CAR-2013-05-003",
+        "CAR-2014-03-001",
+        "CAR-2013-05-005",
+        "CAR-2013-10-001"
+      ],
+      "Host": [],
+      "Name": "Domain Accounts",
+      "Network": [
+        "Arkime: protocols == krb5 && krb5.cname == EXISTS! - krb5.cname == [cname of interest] - ip.src == [IP of interest]",
+        "Kibana: protocol : \"krb5\" AND krb5.cname : * - krb5.cname : [cname of interest] - srcIp : [IP of interest]"
+      ],
+      "Sub-Technique": ".002",
+      "Tactics": [
+        "TA0005",
+        "TA0001",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1078",
+      "Threat Playbook": "Network Only",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2013-10-001",
+        "CAR-2013-02-008",
+        "CAR-2013-05-003",
+        "CAR-2014-03-001",
+        "CAR-2013-05-005",
+        "CAR-2013-10-001"
+      ],
+      "Host": [
+        "See AFTTP3-3 For Hunt Techniques"
+      ],
+      "Name": "Local Accounts",
+      "Network": [],
+      "Sub-Technique": ".003",
+      "Tactics": [
+        "TA0005",
+        "TA0001",
+        "TA0003",
+        "TA0004"
+      ],
+      "Technique": "T1078",
+      "Threat Playbook": "No",
+      "Validated": false
+    },
+    {
+      "Analytic": [
+        "CAR-2014-11-007",
+        "CAR-2014-11-007",
+        "CAR-2014-12-001",
+        "CAR-2016-03-002"
+      ],
+      "Host": [
+        "ParentProcess : wmic.exe AND process : (Microsoft Word, PowerPoint, MSPublisher, Visio, Access, Outlook, Onenote, WordPad, or Excel)",
+        "Event_ID : 1 AND process : wmic.exe AND commandLine: *Win32_Process create*",
+        "Event_ID : 1 AND process : wmic.exe AND commandLine: *shadowcopy delete*",
+        "Event_ID: 24 AND process : wmic.exe",
+        "Event_ID: 5861",
+        "Event_ID : 1 AND process : wmic.exe"
+      ],
+      "Name": "Windows Management Instrumentation",
+      "Network": [
+        "protocols == dcerpc && dcerpc.cmd == [modify as needed]"
+      ],
+      "Sub-Technique": "",
+      "Tactics": [
+        "TA0002"
+      ],
+      "Technique": "T1047",
+      "Threat Playbook": "Yes",
+      "Validated": false
+    }
+  ]
+}
