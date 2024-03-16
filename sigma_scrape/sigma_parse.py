@@ -4,6 +4,7 @@ import glob
 import os
 import random
 
+
 def get_random_files(directory_path, number_of_files=10):
     # Get the absolute path of the directory to ensure output is in absolute form
     abs_directory_path = os.path.abspath(directory_path)
@@ -17,7 +18,6 @@ def get_random_files(directory_path, number_of_files=10):
 
     return random_files
 
-###############fdfsafdsaffdsafdsafds
 
 def yaml_directory_to_csv(directory_path):
     # Define the CSV headers, adjust based on your needs
@@ -36,8 +36,27 @@ def yaml_directory_to_csv(directory_path):
             # Parse the YAML content
             data = yaml.safe_load(file)
             # Update headers dynamically based on all keys encountered
-            headers.update(data.keys())
+
+            for i in ['category', 'product', 'service']:
+                try:
+                    data.update({i: data['logsource'][i]})
+                except KeyError:
+                    data.update({i: 'N/A'})
+
+            data.update({'filepath': os.path.basename(yaml_file)})
+
+            key = data.keys()
+
+            headers.update(key)
+
             all_data.append(data)
+
+
+            #print(all_data)
+
+
+
+            #print(filtered_dict)
 
     return all_data
     # Write to CSV
@@ -45,7 +64,29 @@ def yaml_directory_to_csv(directory_path):
 
 # Example usage
 
-for i in yaml_directory_to_csv('all_yaml'):
-    print(i['detection'])
+# csv fields needed -- 'title', 'description', 'references', 'tags', 'author', 'status', 'logsource', 'category', 'product', 'service', 'detection', 'falsepositives', 'level'
+# 'category', 'product', 'service' need to be parsed from 'logsource'
+
+
+def save_to_csv(data, filename="splunk_research_output.csv"):
+    print(data)
+    keys = data.keys()
+    file_exists = os.path.isfile(filename)
+    with open(filename, 'a', newline='', encoding='utf-8') as output_file:
+        dict_writer = csv.DictWriter(output_file, keys)
+
+        if not file_exists:  # Only write the header if the file doesn't exist
+            dict_writer.writeheader()
+
+        dict_writer.writerow(data)
+    print(f"{data.get('title')} retrieved and written")
+
+
+
+result = yaml_directory_to_csv('all_yaml')
+
+
+for i in result:
+    print(type(i))
 
 
