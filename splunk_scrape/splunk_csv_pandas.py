@@ -8,7 +8,7 @@ df = pd.read_csv(csv_file_path)
 
 print(df)
 
-with open('../All_Tcodes_final.txt', "r") as file:
+with open('../stats/input/All_Tcodes_final.txt', "r") as file:
     tcodes = set(file.read().splitlines())
 
 def matches_tcode(row, tcodes_set):
