@@ -75,7 +75,7 @@ def yaml_file_to_dict(yaml_file):
 # 'category', 'product', 'service' need to be parsed from 'logsource'
 
 
-def save_to_csv(data, filename="splunk_research_output.csv"):
+def save_to_csv(data, filename="sigma_research_output.csv"):
     # print(data)
     keys = data.keys()
     file_exists = os.path.isfile(filename)
