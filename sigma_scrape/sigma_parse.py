@@ -3,9 +3,9 @@ import csv
 import glob
 import os
 import random
+from collections import OrderedDict
 
-
-def get_random_files(directory_path, number_of_files=10):
+def get_random_files(directory_path, number_of_files=50):
     # Get the absolute path of the directory to ensure output is in absolute form
     abs_directory_path = os.path.abspath(directory_path)
 
@@ -19,46 +19,53 @@ def get_random_files(directory_path, number_of_files=10):
     return random_files
 
 
-def yaml_directory_to_csv(directory_path):
+def get_all_files(directory_path):
+    # Get the absolute path of the directory to ensure output is in absolute form
+    abs_directory_path = os.path.abspath(directory_path)
+
+    # List all files in the directory
+    all_files = [os.path.join(abs_directory_path, f) for f in os.listdir(abs_directory_path) if
+                 os.path.isfile(os.path.join(abs_directory_path, f))]
+
+    return all_files
+
+
+def yaml_file_to_dict(yaml_file):
     # Define the CSV headers, adjust based on your needs
-    headers = set()
-    all_data = []
 
-    # Find all YAML files in the specified directory
-    # yaml_files = glob.glob(os.path.join(directory_path, '*.yaml'))
+    with open(yaml_file, 'r', encoding='utf-8') as file:
+        # Parse the YAML content
 
-    # for testing only
-    yaml_files = get_random_files(directory_path)
+        data = list(yaml.safe_load_all(file))[0]
 
-    # Process each YAML file
-    for yaml_file in yaml_files:
-        with open(yaml_file, 'r', encoding='utf-8') as file:
-            # Parse the YAML content
-            data = yaml.safe_load(file)
-            # Update headers dynamically based on all keys encountered
+        # Update headers dynamically based on all keys encountered
 
-            for i in ['category', 'product', 'service']:
-                try:
-                    data.update({i: data['logsource'][i]})
-                except KeyError:
-                    data.update({i: 'N/A'})
+        for i in ['category', 'product', 'service']:
+            try:
+                data.update({i: data['logsource'][i]})
+            except KeyError:
+                data.update({i: 'N/A'})
 
-            data.update({'filepath': os.path.basename(yaml_file)})
+        data.update({'filepath': os.path.basename(yaml_file)})
 
-            key = data.keys()
+        # Headers (keys) we want to keep
+        desired_keys = {'id', 'title', 'description', 'references', 'tags', 'author', 'status', 'logsource', 'category',
+                        'product', 'service', 'detection', 'falsepositives', 'level', 'category', 'product', 'service',
+                        'filepath'}
 
-            headers.update(key)
+        # Filtering the dictionary to only include desired keys
+        filtered_dict = {k: data[k] for k in desired_keys if k in data}
 
-            all_data.append(data)
+        # fill empty values
+        for i in desired_keys:
+            try:
+                filtered_dict[i]
+            except KeyError:
+                filtered_dict[i] = 'N/A'
 
+        ordered_dict = OrderedDict((k, filtered_dict[k]) for k in list(desired_keys))
 
-            #print(all_data)
-
-
-
-            #print(filtered_dict)
-
-    return all_data
+    return ordered_dict
     # Write to CSV
 
 
@@ -69,7 +76,7 @@ def yaml_directory_to_csv(directory_path):
 
 
 def save_to_csv(data, filename="splunk_research_output.csv"):
-    print(data)
+    # print(data)
     keys = data.keys()
     file_exists = os.path.isfile(filename)
     with open(filename, 'a', newline='', encoding='utf-8') as output_file:
@@ -83,10 +90,7 @@ def save_to_csv(data, filename="splunk_research_output.csv"):
 
 
 
-result = yaml_directory_to_csv('all_yaml')
-
-
-for i in result:
-    print(type(i))
-
-
+if __name__ == "__main__":
+    for i in get_all_files('all_yaml'):
+        #save_to_csv(yaml_file_to_dict(i))
+        save_to_csv(yaml_file_to_dict(i))
